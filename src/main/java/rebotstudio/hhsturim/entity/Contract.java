@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 @Data
 @ToString
 @Entity
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Contract {
 
     @Id

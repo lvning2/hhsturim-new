@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.ToString;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Data
 @ToString
 @Entity
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class Admin {
 
     @Id

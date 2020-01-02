@@ -9,6 +9,8 @@ import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.service.LoginService;
 import rebotstudio.hhsturim.vo.ResultVo;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class LoginController {
 
@@ -17,12 +19,13 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResultVo login(@RequestParam String username, @RequestParam String password){
+    public ResultVo login(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
 
         ResultVo resultVo=new ResultVo();
         try {
             User login = loginService.login(username, password);
             if (login!=null){
+                request.getSession().setAttribute("user",login);
                 resultVo.setCode(0);
                 resultVo.setData(login);
                 resultVo.setMsg("登录成功");
@@ -37,7 +40,7 @@ public class LoginController {
         }catch (Exception e){
             resultVo.setCode(1);
             resultVo.setMsg(e.getMessage());
-            resultVo.setMsg("登录成功");
+            resultVo.setMsg("登录失败");
             return resultVo;
 
         }
