@@ -6,12 +6,13 @@ spring:
     username: root
     password: 107754
     url: jdbc:mysql://www.lvning.club:3306/hhsturim?serverTimezone=UTC
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    filters: stat,wall,slf4j
   jpa:
     database: mysql
     show-sql: true
     hibernate:
       ddl-auto: update
-
+    open-in-view: false
 
 

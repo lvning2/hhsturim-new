@@ -40,10 +40,8 @@ public class CustomerService {
     }
 
     public void delete(Integer userId, Integer customerId) {        //为用户删除一个客户
-
         Customer byUidAndAndCustomerId = customerRepository.findByUidAndAndCustomerId(userId, customerId);
         customerRepository.delete(byUidAndAndCustomerId);
-
     }
 
 

@@ -1,6 +1,6 @@
 package rebotstudio.hhsturim.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,38 +14,30 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private LoginService loginService;
+    private final LoginService loginService;
+
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+
 
     @PostMapping("/login")
     @ResponseBody
     public ResultVo login(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
-
-        ResultVo resultVo=new ResultVo();
         try {
             User login = loginService.login(username, password);
             if (login!=null){
                 request.getSession().setAttribute("user",login);
-                resultVo.setCode(0);
-                resultVo.setData(login);
-                resultVo.setMsg("登录成功");
-                return resultVo;
-
+                return new ResultVo(0,"登录成功",login);
             }else {
-                resultVo.setCode(1);
-                resultVo.setMsg("登录失败");
-                return resultVo;
+                return new ResultVo(1,"登录失败",null);
             }
-
         }catch (Exception e){
-            resultVo.setCode(1);
-            resultVo.setMsg(e.getMessage());
-            resultVo.setMsg("登录失败");
-            return resultVo;
-
+            return new ResultVo(1,"登录失败",e.getMessage());
         }
-
     }
+
 
 
 
