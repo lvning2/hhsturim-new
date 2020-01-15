@@ -2,6 +2,7 @@ package rebotstudio.hhsturim.controller;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,7 @@ import rebotstudio.hhsturim.vo.ResultVo;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@CrossOrigin(maxAge = 3600)
 public class LoginController {
 
     private final LoginService loginService;
@@ -19,8 +21,6 @@ public class LoginController {
     public LoginController(LoginService loginService) {
         this.loginService = loginService;
     }
-
-
 
     @PostMapping("/login")
     @ResponseBody

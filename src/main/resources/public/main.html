@@ -1,0 +1,549 @@
+<html>
+<head>
+
+    <title>主页</title>
+    <meta charset="utf-8" />
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css" />
+    <script src="js/jquery-3.4.1.js" type="text/javascript"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/config.js"></script>
+
+    <style>
+
+.main-out{
+
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-image: url('img/bgimg0.jpg');
+      
+}
+
+.layui-nav{
+  background-color:rgba(	255,255,255,.14);
+  
+}
+
+
+      #main{
+        width: 100%;
+        /* height: 40.5%; */
+        /* height: 42.6%; */
+        height: 40%;
+
+        padding-top: 2.5%;
+        padding-bottom: 2.5%;
+        /* background-color:#666; */
+        /* background-image: url('img/bgimg3.jpg'); */
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+  
+      }
+
+
+
+
+      .main-top{
+          /* width: 1400px; */
+          /* width: 73%; */
+          width: 70%;
+          /* height: 380px; */
+          /* height: 40.5%; */
+          height: 100%;
+          margin: 0 auto;
+          /* border: 1px solid red; */
+          padding: 0%;
+          
+        }
+    
+        .list_item_top {
+          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+          float: left;
+          /* width:280px; */
+          width:20%;
+          /* height:380px; */
+          height: 100%;
+          cursor: pointer;
+          transition: all 0.1s;
+            /* border: 2px solid red; */
+        }
+
+        .list_item_top_img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .list_item_top:hover{
+          transform: scale(1.1);
+        }
+
+        #center{
+            width: 100%;
+            height: 10%;
+            border: 1px solid yellow;
+        }
+
+        .catalogue{
+            position: relative;
+            padding-top: 0.5%;
+            width: 100%;
+            height: 50%;
+            left: 20%;
+        }
+        .price{
+          position: relative;
+            width: 100%;
+            height: 50%;
+            left: 20%;
+        }
+
+        #border{
+          /* width: 80%;
+          height: 380px; */
+          width: 73%;
+          /* height: auto; */
+          margin: 0 auto;
+          height: calc(100% - 200px);
+          /* border: 1px solid black; */
+        }
+    
+        
+
+        /* .border_list_item{
+          width: 90%;
+          margin: 0 auto; */
+          /* border: 1px solid red; */
+          /* height: 1000px; */
+        /* } */
+        /* .list_item_center{
+          float: left;
+          width:22%;
+          height: 280px;
+          padding: 1.5%;
+        }
+        .list_item_center_img{
+            width: 100%;
+            height: 100%;
+        } */
+
+        /* .folding:hover{
+          /* display: none; */
+          /* height: 50px;
+          transition: all 0.3s linear;
+        }  */
+        /* .list_item_center_img:hover{
+          display: list-item;
+          background-color: blue;
+          height: 50px;
+        } */
+        /* .folding{
+          height: 0;
+          overflow: hidden;
+        } */
+        /* .ceshi{
+          overflow: hidden;
+        } */
+
+        /* .ceshi:hover .folding{
+          transition: all 0.3 linear;
+            /* position: relative; */
+            /* height: 100px; */
+
+        /* }  */
+
+
+
+
+        .item{
+        width: 100%;
+    }
+
+    .item-list{
+        width: 25%;
+        display: block;
+        height: 230px;
+        float: left;
+        z-index: -2;
+        padding-top: 2%;
+    }
+    .item-list-top{
+        
+        height: 250px;
+        transition: height 0.8s;
+        overflow: hidden;
+        /* z-index: 5; */
+        position: relative;
+        padding-left: 5%;
+
+
+    }
+    .list_item_img{
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+        width: 100%;
+        height: 200px;
+    }
+    .list_item_img_cling{
+      height: 50px;
+    }
+
+    .item-list-top:hover{
+        height:380px;
+    }
+
+    .list-item-bottom{
+        width: 100%;
+        /* border: 1px red solid; */
+        overflow: hidden;
+        z-index:10;
+        position: absolute;
+        background-color: #ffffff;
+        
+    }
+ 
+    footer{
+      
+      height: 300px;
+      border: 2px blue solid;
+      
+
+
+      /* bottom:0; */
+
+    }
+       
+    </style>
+
+</head>
+
+<body>
+
+<div class="main-out">
+    <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item"><a href="">最新活动</a></li>
+        <li class="layui-nav-item layui-this"><a href="">产品</a></li>
+        <li class="layui-nav-item"><a href=""><font color="black">大数据</font></a></li>
+        <li class="layui-nav-item"><a href="">大数据</a></li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">解决方案</a>
+          <dl class="layui-nav-child"> <!-- 二级菜单 -->
+            <dd><a href="">移动模块</a></dd>
+            <dd><a href="">后台模版</a></dd>
+            <dd><a href="">电商平台</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">社区</a></li>
+      </ul>
+
+
+
+      <!-- <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+          <li class="layui-this">网站设置</li>
+          <li>用户管理</li>
+          <li>权限分配</li>
+          <li>商品管理</li>
+          <li>订单管理</li>
+        </ul>
+        <div class="layui-tab-content"></div>
+      </div>  -->
+
+
+      <!-- main  5个大图片 -->
+    
+    <div id="main">
+
+        <div class="main-top">
+          <div v-for="(item,i) in list"  class="list_item_top layui-anim">
+                <a :href="href+item.id" target="_blank"><img class="list_item_top_img" @mouseover="bg(i)" :title="item.title" :src="item.img"></a>
+          </div>
+
+          <!-- <div class="list_item_top  layui-anim">
+            <img class="list_item_top_img" src="img/图片1.png">
+          </div>
+
+          <div class="list_item_top  layui-anim">
+            <img class="list_item_top_img" src="img/图片1.png">
+          </div>
+
+          <div class="list_item_top  layui-anim">
+            <img class="list_item_top_img" src="img/图片1.png">
+          </div>
+
+          <div class="list_item_top  layui-anim">
+            <img class="list_item_top_img" src="img/图片1.png">
+          </div> -->
+
+        </div>
+
+      </div>
+
+</div>
+
+
+<!-- center  -->
+<div id="center">
+  <!-- 分类 -->
+  <div class="catalogue" >
+    分类： <a class="center_type" id="1" @click="getPlaceByType($event)">餐饮</a>
+           <a class="center_type" id="2" @click="getPlaceByType($event)">商业街</a>
+           <a class="center_type" id="3" @click="getPlaceByType($event)">娱乐</a> 集会 竞赛 训练 其他
+  </div>
+  
+  <div class="price">
+    价位: <a class="center_price" start='0' end="500" @click.capture="getPlaceByPrice($event)">0~500</a>
+    <a class="center_price" start='500' end="1000" @click.capture="getPlaceByPrice($event)">500~1000</a> 
+    <a class="center_price" start='1000' end="2000" @click.capture="getPlaceByPrice($event)">1000~2000</a> 
+    <a class="center_price" start='2000' end="3000" @click.capture="getPlaceByPrice($event)">2000~3000</a> 
+    <a class="center_price" start='3000' end="999999" @click.capture="getPlaceByPrice($event)">3000+</a>
+  </div>
+
+</div>
+
+
+    
+<div id="border" >
+
+  <ul class="item">
+    <li v-for="item in list" class="item-list" ><a :href="href+item.id" target="_blank" :pid="item.id">
+        <div class="item-list-top" :pid="item.id">
+            <img class="list_item_img" :pid="item.id" :title="item.title" :src="item.img">
+            <div class="list_item_img_cling" :pid="item.id">
+              <h5>{{item.title}}</h5>
+            </div>
+            <div class="list-item-bottom">
+                <p>联系人：{{item.username}}</p>
+                <p>电话：{{item.phone}}</p>
+                <p>价格：{{item.price}}</p>
+                <p>分类：{{item.type}}</p>
+                
+            </div>
+        </div></a>
+        
+    </li>
+
+    <!-- <li class="item-list">
+        <div class="item-list-top">
+            <img class="list_item_img" src="img/bgimg1.jpg">
+            <div class="list-item-bottom">
+                <p>你好</p>
+            </div>
+        </div>
+        
+
+    </li>
+
+
+    <li class="item-list">
+        <div class="item-list-top">
+            <img class="list_item_img" src="img/bgimg2.jpg">
+            <div class="list-item-bottom">
+                <p>你好</p>
+            </div>
+        </div>
+        
+
+    </li>
+
+    <li class="item-list">
+        <div class="item-list-top">
+            <img class="list_item_img" src="img/bgimg1.jpg">
+            <div class="list-item-bottom">
+                <p>你好</p>
+            </div>
+        </div>
+        
+
+    </li>
+
+    <li class="item-list">
+        <div class="item-list-top">
+            <img class="list_item_img" src="img/bgimg1.jpg">
+            <div class="list-item-bottom">
+                <p>你好</p>
+            </div>
+        </div>
+        
+    </li>
+
+
+    <li class="item-list">
+        <div class="item-list-top">
+            <img class="list_item_img" src="img/bgimg1.jpg">
+            <div class="list-item-bottom">
+                <p>你好</p>
+            </div>
+        </div>
+        
+
+    </li> -->
+
+</ul>
+
+  
+</div>
+
+
+    <!--页低 -->
+<footer>
+      <div>
+
+        <p>服务与支持</p>
+
+      </div>
+</footer>
+  
+</body>
+
+
+   
+   
+  <script>
+  //注意：导航 依赖 element 模块，否则无法进行功能性操作
+  layui.use('element', function(){
+
+    var element = layui.element;
+    
+    //…
+  });
+
+ 
+
+  var vm_list_item_top=new Vue({
+      el:".main-top",
+      data:{
+        list:"",
+        href:''
+
+      },
+      methods:{
+        bg:function(i){
+            $('.main-out').css('background-image','url("img/bgimg'+i+'.jpg")');
+          } 
+      }
+
+  })
+
+
+  var vm_border_item=new Vue({
+      el:".item",
+      data:{
+        list:"",
+        href:""
+      },
+      methods:{
+        info:function(e){
+            
+        }
+      }
+
+  })
+
+  var vm_center_price=new Vue({
+      el:".price",
+      data:{
+        
+      },
+      methods:{
+        getPlaceByPrice:function(e){
+            var start=e.target.getAttribute('start');
+            var end=e.target.getAttribute('end');
+            
+            $.ajax({
+              url:host+"/place/getPlaceByPrice",
+              data:{
+                'start':start,
+                'end':end
+              },
+              type:'get',
+              success:function(data){
+                if(data.code==0){
+                  vm_border_item.list=data.data;
+                  
+                  
+                  
+                }
+
+              }
+
+            })
+
+        }
+
+      }
+
+  })
+  
+
+
+
+  var vm_center_type=new Vue({
+      el:".catalogue",
+      data:{
+        
+      },
+      methods:{
+
+        getPlaceByType:function(e){
+            var type=e.target.getAttribute('id');
+            $.ajax({
+              url:host+"/place/getPlaceByType",
+              data:{
+                'type':type
+              },
+              type:'get',
+              success:function(data){
+                if(data.code==0){
+                  vm_border_item.list=data.data;
+                }
+
+              }
+
+            })
+
+        } 
+
+      }
+
+  })
+
+
+
+
+$(function(){
+    $.ajax({
+              url:host+"/place/getPlaceTop",
+              type:'get',
+              success:function(data){
+                if(data.code==0){
+                  vm_list_item_top.href=host+"/info.html?id=";
+                  vm_list_item_top.list=data.data;
+                }
+
+              }
+
+            })
+
+})
+
+$(function(){
+    $.ajax({
+              url:host+"/place/getPlaceBorder",
+              type:'get',
+              success:function(data){
+                if(data.code==0){
+                  vm_border_item.href=host+"/info.html?id=";
+                  vm_border_item.list=data.data;
+                }
+
+              }
+
+            })
+
+})
+
+  </script>
+  
+
+</html>
+

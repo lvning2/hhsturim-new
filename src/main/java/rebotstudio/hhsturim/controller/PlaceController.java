@@ -1,16 +1,15 @@
 package rebotstudio.hhsturim.controller;
 
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiParam;
+import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.service.PlaceService;
 import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.StatusCode;
 
 @RestController
 @RequestMapping("/place")
+@CrossOrigin(maxAge = 3600)
 public class PlaceController {
 
     private final PlaceService placeService;
@@ -31,6 +30,29 @@ public class PlaceController {
         return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getOne(id));
     }
 
+    @GetMapping("/getPlaceTop")
+    @ApiOperation("获取top地点信息")
+    public ResultVo getPlaceTop(){
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getTop());
+    }
+
+    @GetMapping("/getPlaceBorder")
+    @ApiOperation("获取top地点信息")
+    public ResultVo getPlaceBorder(){
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getBorder());
+    }
+
+    @GetMapping("/getPlaceByType")
+    @ApiOperation("根据类型获取地点信息")
+    public ResultVo getPlaceByType(@ApiParam("类型") @RequestParam Integer type){
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getPlaceByType(type));
+    }
+
+    @GetMapping("/getPlaceByPrice")
+    @ApiOperation("根据类型获取地点信息")
+    public ResultVo getPlaceByPrice(@ApiParam("价格") @RequestParam Float start,@ApiParam("价格") @RequestParam Float end){
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getPlaceByPrice(start,end));
+    }
 
 
 }

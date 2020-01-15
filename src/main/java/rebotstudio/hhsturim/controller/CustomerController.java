@@ -12,6 +12,7 @@ import rebotstudio.hhsturim.vo.StatusCode;
 @RestController
 @RequestMapping("/customer")
 @Api(tags = "客户相关接口")
+@CrossOrigin(maxAge = 3600)
 public class CustomerController {
 
     private final CustomerService customerService;

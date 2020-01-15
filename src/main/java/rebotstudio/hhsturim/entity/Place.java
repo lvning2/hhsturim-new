@@ -28,5 +28,19 @@ public class Place {
     @Column(name = "details")
     private String details;
 
+    @Column(name = "img")
+    private String img;
+
+    @Column(name = "price")
+    private Float price;
+
+    @Column(name = "type")
+    private Integer type;
+
+    @Column(name = "state")
+    private Integer state;
 
 }
+
+
+
