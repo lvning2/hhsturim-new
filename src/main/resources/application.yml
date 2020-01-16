@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+#上传图片存放路径
+hhsturim:
+  uploadfilepath: F:/imgs/
+
 spring:
   datasource:
     username: root
@@ -8,6 +12,10 @@ spring:
     url: jdbc:mysql://www.lvning.club:3306/hhsturim?serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     filters: stat,wall,slf4j
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 10MB
   jpa:
     database: mysql
     show-sql: true

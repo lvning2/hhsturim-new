@@ -7,6 +7,7 @@ import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.repository.CustomerRepository;
 import rebotstudio.hhsturim.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CustomerService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public List getAllCustomerById(Integer uid){            //查询用户的所有客户信息
 
         List list = new  ArrayList();
@@ -32,6 +34,7 @@ public class CustomerService {
         return list;
     }
 
+    @Transactional
     public void addCustomer(Integer userId, Integer customerId) {        //为用户添加一个客户
         Customer customer=new Customer();
         customer.setUid(userId);
@@ -39,6 +42,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
+    @Transactional
     public void delete(Integer userId, Integer customerId) {        //为用户删除一个客户
         Customer byUidAndAndCustomerId = customerRepository.findByUidAndAndCustomerId(userId, customerId);
         customerRepository.delete(byUidAndAndCustomerId);

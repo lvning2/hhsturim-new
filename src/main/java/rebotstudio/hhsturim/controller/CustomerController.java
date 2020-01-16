@@ -24,6 +24,7 @@ public class CustomerController {
     @GetMapping("/getAllCustomerByUid")
     @ApiOperation("获取一个用户的所有客户信息")
     public ResultVo getAll(@ApiParam("uid") @RequestParam Integer uid){
+
         try {
             return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,customerService.getAllCustomerById(uid));
         }catch (Exception e){

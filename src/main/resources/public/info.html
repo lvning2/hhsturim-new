@@ -11,8 +11,11 @@
 
     <style type="text/css">
         .left-img{
+            position: absolute;
             width: 30%;
-            height: 30%;
+            height: 40%;
+            left: 20%;
+            top: 20%;
         }
 
         .img{
@@ -20,6 +23,12 @@
             height: 100%;
         }
         
+        .right{
+            position: absolute;
+            left:70%;
+            top: 20%;
+            
+        }
         
     </style>
 
@@ -29,8 +38,19 @@
 
 <div class="main">
       <div class="left-img">
-            <img :src="place" class="img" v-clock/>
+            <img :src="place.img" class="img" v-clock/>
       </div>  
+      <div class="right">
+            <h1>{{place.price}}元/月</h1>
+            <div>
+                <h2>{{place.title}}</h2>
+                <h2>类型:{{place.type}}</h2>
+            </div>
+            <div>
+                <h1>联系人:{{place.username}}</h1>
+                <h3>{{place.phone}}</h3>
+            </div>
+      </div>
 
 </div>
 
@@ -58,7 +78,7 @@ $(function(){
               type:'get',
               success:function(data){
                 if(data.code==0){
-                  vm_main.place=data.data.img;
+                  vm_main.place=data.data;
                 }
 
               }

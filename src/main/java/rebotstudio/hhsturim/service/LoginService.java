@@ -6,12 +6,15 @@ import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.repository.UserRepository;
 
+import javax.transaction.Transactional;
+
 @Service
 public class LoginService {
 
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public User login(String username,String password){
         User user = userRepository.findByUsername(username);
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();

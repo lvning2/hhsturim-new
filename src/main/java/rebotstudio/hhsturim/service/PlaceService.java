@@ -27,10 +27,12 @@ public class PlaceService {
     @Autowired
     private TopRepository topRepository;
 
-   public List getAll(){        //获取所有的地点信息
+    @Transactional
+    public List getAll(){        //获取所有的地点信息
        return placeRepository.findAll();
     }
 
+    @Transactional
     public PlaceVo getOne(Integer id){        //根据id获取一个地点信息
 
         PlaceVo placeVo = PlaceMapper.toVo(placeRepository.getOne(id));
@@ -49,6 +51,7 @@ public class PlaceService {
         return list;
     }
 
+    @Transactional
     public List<PlaceVo> getBorder(){             //获取border
         List<PlaceVo> list=new ArrayList<>();
         List<Place> all = placeRepository.findAll();
@@ -61,6 +64,7 @@ public class PlaceService {
        return list;
     }
 
+    @Transactional
     public List<PlaceVo> getPlaceByType(Integer type){        //根据类型获取
         List<PlaceVo> list=new ArrayList<>();
         List<Place> placeByType = placeRepository.findPlaceByType(type);
@@ -73,6 +77,7 @@ public class PlaceService {
         return list;
     }
 
+    @Transactional
     public List<PlaceVo> getPlaceByPrice(Float start,Float end){        //根据价格区间查询
 
         List<PlaceVo> list=new ArrayList<>();

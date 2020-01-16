@@ -25,6 +25,7 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public ResultVo login(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+
         try {
             User login = loginService.login(username, password);
             if (login!=null){
@@ -36,6 +37,7 @@ public class LoginController {
         }catch (Exception e){
             return new ResultVo(1,"登录失败",e.getMessage());
         }
+
     }
 
 
