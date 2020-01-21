@@ -1,0 +1,143 @@
+<html>
+<head>
+    <title>请登录</title>
+    <meta charset="utf-8" />
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/axios.min.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+    <script src="js/element.js"></script>
+
+
+</head>
+<style>
+
+    .form{
+        margin: 0 auto;
+        width: 25%;
+        left: 38%;
+    }
+    .btm{
+        margin: 0 auto;
+        width: 25%;
+        left: 38%;
+    }
+
+
+
+</style>
+
+
+<body>
+
+    <div>
+        <div></div>
+        <div class="form" id="form">
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="用户名" prop="username">
+                  <el-input type="text" v-model="ruleForm.username" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password">
+                  <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                  <el-button @click="resetForm('ruleForm')">注册</el-button>
+                </el-form-item>
+              </el-form>
+        </div>
+        <div class="btm">
+            <a><img src="img/qq.png">QQ登录</a>
+            <a><img src="img/weixin.png">微信登录</a>
+        </div>
+
+    </div>
+
+
+
+
+</body>
+<script>
+    var main= {
+      data() {
+        var validateUsername = (rule, value, callback) => {
+          if (value === '') {
+            callback(new Error('请输入用户名'));
+          }else {
+              callback();
+          }
+        };
+        var validatePassword = (rule, value, callback) => {
+          if (value === '') {
+            callback(new Error('请输入密码'));
+          }else {
+              callback();
+          }
+        };
+        return {
+          ruleForm: {
+            username: '',
+            password: ''
+          },
+          rules: {
+            username: [
+              { validator: validateUsername, trigger: 'blur' }
+            ],
+            password: [
+              { validator: validatePassword, trigger: 'blur' }
+            ]
+          }
+        };
+      },
+      methods: {
+        submitForm(formName) {
+          this.$refs[formName].validate((valid) => {
+            if (valid) {
+
+                axios({
+                    url:'/login',
+                    method:'post',
+                    data: {
+                        username: this.$data.ruleForm.username,
+                        password: this.$data.ruleForm.password
+                    }
+                })
+                    .then(function (response) {
+                        if(response.data.code==0){
+                            window.location='/';
+                        }
+
+
+                    })
+
+
+
+
+              alert('submit!');
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+        },
+        resetForm(formName) {
+          this.$refs[formName].resetFields();
+        }
+      }
+    }
+
+    var Ctor = Vue.extend(main)
+    new Ctor().$mount('#form')
+
+  </script>
+
+</html>
+
+
+
+

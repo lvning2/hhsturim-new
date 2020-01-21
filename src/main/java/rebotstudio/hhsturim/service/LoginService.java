@@ -17,12 +17,16 @@ public class LoginService {
     @Transactional
     public User login(String username,String password){
         User user = userRepository.findByUsername(username);
+
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
         if(user!=null){
             boolean flog = bCryptPasswordEncoder.matches(password, user.getPassword());
             if(flog){
-                user.setPassword("");
-                return user;
+                User login=new User();
+                login.setName(user.getName());
+                login.setId(user.getId());
+                login.setUsername(user.getUsername());
+                return login;
             }else {
                 return null;
             }

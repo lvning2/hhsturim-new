@@ -154,15 +154,10 @@
                                 details:this.$data.ruleForm.details ,
                                 img:this.$data.ruleForm.img ,
                                 price:this.$data.ruleForm.price ,
-                                type:this.$data.ruleForm.type ,
+                                type:this.$data.ruleForm.type
                             }
                         });
 
-
-                        console.log(this.$data.ruleForm.title);
-                        this.$reqs.post("/upload", this.param, config).then(function(result) {
-                            console.log(result);
-                        })
                     } else {
                         console.log('error submit!!');
                         return false;

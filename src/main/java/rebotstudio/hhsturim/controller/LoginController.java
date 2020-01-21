@@ -1,11 +1,7 @@
 package rebotstudio.hhsturim.controller;
 
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.service.LoginService;
 import rebotstudio.hhsturim.vo.ResultVo;
@@ -24,10 +20,10 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResultVo login(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+    public ResultVo login(@RequestBody User user, HttpServletRequest request){
 
         try {
-            User login = loginService.login(username, password);
+            User login = loginService.login(user.getUsername(), user.getPassword());
             if (login!=null){
                 request.getSession().setAttribute("user",login);
                 return new ResultVo(0,"登录成功",login);
@@ -40,7 +36,10 @@ public class LoginController {
 
     }
 
-
+    @RequestMapping("/")
+    public String index(){
+        return "main.html";
+    }
 
 
 }
