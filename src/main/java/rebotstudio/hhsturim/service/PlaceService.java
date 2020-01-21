@@ -33,6 +33,11 @@ public class PlaceService {
     }
 
     @Transactional
+    public void savePlace(Place place){     //保存一个地点信息
+        placeRepository.save(place);
+    }
+
+    @Transactional
     public PlaceVo getOne(Integer id){        //根据id获取一个地点信息
 
         PlaceVo placeVo = PlaceMapper.toVo(placeRepository.getOne(id));

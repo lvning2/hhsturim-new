@@ -3,6 +3,8 @@ package rebotstudio.hhsturim.vo;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.Date;
+
 
 @ToString
 @Data
@@ -26,5 +28,6 @@ public class PlaceVo {
 
     private String state;
     private Float price;
+    private Date createTime;
 
 }

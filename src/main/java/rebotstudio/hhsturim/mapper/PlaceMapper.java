@@ -15,6 +15,7 @@ public class PlaceMapper {
         placeVo.setTitle(place.getTitle());
         placeVo.setUid(place.getUid());
         placeVo.setPrice(place.getPrice());
+        placeVo.setCreateTime(place.getCreateTime());
         int t=place.getType();
         if(t==1){
             placeVo.setType("餐饮");

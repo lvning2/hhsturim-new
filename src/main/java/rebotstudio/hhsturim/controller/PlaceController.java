@@ -3,6 +3,7 @@ package rebotstudio.hhsturim.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
+import rebotstudio.hhsturim.entity.Place;
 import rebotstudio.hhsturim.service.PlaceService;
 import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.StatusCode;
@@ -53,6 +54,14 @@ public class PlaceController {
     public ResultVo getPlaceByPrice(@ApiParam("价格") @RequestParam Float start,@ApiParam("价格") @RequestParam Float end){
         return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getPlaceByPrice(start,end));
     }
+
+    @PostMapping("/save")
+    @ApiOperation("保存一个地点信息")
+    public ResultVo savePlace(Place place){
+
+        return new ResultVo();
+    }
+
 
 
 }

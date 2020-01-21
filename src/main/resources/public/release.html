@@ -4,14 +4,14 @@
     <meta charset="utf-8" />
     <script src="layui/layui.js"></script>
     <link rel="stylesheet" href="layui/css/layui.css" />
-    <script src="js/jquery-3.4.1.js" type="text/javascript"></script>
     <script src="js/vue.js"></script>
     <script src="js/config.js"></script>
-    <script src="js/getUrlParam.js"></script>
-    <!-- 引入样式 -->
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-<!-- 引入组件库 -->
-<script src="https://unpkg.com/element-ui/lib/index.js" type="module"></script>
+    <script src="js/axios.min.js"></script>
+
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
+    <script src="js/element.js"></script>
+
 
     <style type="text/css">
 
@@ -30,7 +30,7 @@
 <ul class="layui-nav" lay-filter="">
     <li class="layui-nav-item"><a href="/main.html">首页</a></li>
     <li class="layui-nav-item layui-this"><a href="">产品</a></li>
-    <li class="layui-nav-item"><a href="javascript:;"><font color="black">我是业主</font></a>
+    <li class="layui-nav-item"><a href="javascript:;">我是业主</a>
         <dl class="layui-nav-child"> <!-- 二级菜单 -->
             <dd><a href="">发布信息</a></dd>
             <dd><a href="">我的租赁</a></dd>
@@ -50,125 +50,159 @@
     <li class="layui-nav-item"><a href="">社区</a></li>
 </ul>
 <div id="app" class="main">
+
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="活动名称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="标题" prop="title">
+            <el-input v-model="ruleForm.title"></el-input>
         </el-form-item>
-        <el-form-item label="活动区域" prop="region">
-          <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
+        <el-form-item label="详细信息" prop="details">
+            <el-input style="min-height: 63px;;" rows="10"  type="textarea" v-model="ruleForm.details"></el-input>
         </el-form-item>
-        <el-form-item label="活动时间" required>
-          <el-col :span="11">
-            <el-form-item prop="date1">
-              <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col class="line" :span="2">-</el-col>
-          <el-col :span="11">
-            <el-form-item prop="date2">
-              <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-            </el-form-item>
-          </el-col>
+        <el-form-item label="价格" prop="price">
+            <el-input v-model="ruleForm.price"></el-input>
         </el-form-item>
-        <el-form-item label="即时配送" prop="delivery">
-          <el-switch v-model="ruleForm.delivery"></el-switch>
+        <el-form-item label="上传图片" prop="img">
+            <!-- <el-input v-model="ruleForm.img"></el-input>
+            <input  /> -->
+            <el-upload id="upload" ref="upload"
+                       action="/other/upload"
+                       :on-preview="handlePreview"
+                       :on-remove="handleRemove"
+                       :before-remove="beforeRemove"
+                       :on-success="uploadfun"
+                       multiple
+                       :limit="1"
+                       name="fileName"
+                       :on-exceed="handleExceed"
+            >
+                <el-button slot="trigger" size="small" type="primary">上传图片</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+            </el-upload>
+            <el-input v-model="ruleForm.img" type="hidden"></el-input>
         </el-form-item>
-        <el-form-item label="活动性质" prop="type">
-          <el-checkbox-group v-model="ruleForm.type">
-            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-            <el-checkbox label="地推活动" name="type"></el-checkbox>
-            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-          </el-checkbox-group>
+
+
+
+        <el-form-item label="场地类型" prop="type">
+            <el-radio-group v-model="ruleForm.type">
+                <el-radio value='1' label="餐饮"></el-radio>
+                <el-radio label="商业街"></el-radio>
+                <el-radio label="娱乐"></el-radio>
+                <el-radio label="集会"></el-radio>
+                <el-radio label="竞赛"></el-radio>
+                <el-radio label="训练"></el-radio>
+                <el-radio label="其他"></el-radio>
+            </el-radio-group>
         </el-form-item>
-        <el-form-item label="特殊资源" prop="resource">
-          <el-radio-group v-model="ruleForm.resource">
-            <el-radio label="线上品牌商赞助"></el-radio>
-            <el-radio label="线下场地免费"></el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="活动形式" prop="desc">
-          <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-        </el-form-item>
+
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">立即发布</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
-      </el-form>
-    </div>
+    </el-form>
+</div>
 </body>
 
-      
-      <script type="module">
-          
-        var Main ={
-          data() {
+
+<script type="module">
+
+    var Main ={
+        data() {
             return {
-              ruleForm: {
-                name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
-              },
-              rules: {
-                name: [
-                  { required: true, message: '请输入活动名称', trigger: 'blur' },
-                  { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                ],
-                region: [
-                  { required: true, message: '请选择活动区域', trigger: 'change' }
-                ],
-                date1: [
-                  { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-                ],
-                date2: [
-                  { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-                ],
-                type: [
-                  { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-                ],
-                resource: [
-                  { required: true, message: '请选择活动资源', trigger: 'change' }
-                ],
-                desc: [
-                  { required: true, message: '请填写活动形式', trigger: 'blur' }
-                ]
-              }
-            };
-          },
-          methods: {
-            submitForm(formName) {
-              this.$refs[formName].validate((valid) => {
-                if (valid) {
-                  alert('submit!');
-                } else {
-                  console.log('error submit!!');
-                  return false;
+                ruleForm: {
+                    title: '',
+                    details: '',
+                    price:'',
+                    img: '',
+                    date2: '',
+                    delivery: false,
+                    type: '',
+                    fileList: []
+
+                },
+                rules: {
+                    title: [
+                        { required: true, message: '请输入标题', trigger: 'blur' },
+                        { min: 2, max: 100, message: '长度在 2 个字符以上', trigger: 'blur' }
+                    ],
+                    type: [
+                        {  required: true, message: '请选择一个类型', trigger: 'change' }
+                    ],
+                    price: [
+                        { type:'number', required: true, message: '请正确填写价格', trigger: 'change' ,transform: (value) => Number(value)}
+                    ],
+                    img: [
+                        {required: true, message: '请上传图片', trigger: 'change' }
+                    ],
+                    details: [
+                        { required: true, message: '请填写详细信息', trigger: 'blur' }
+                    ]
                 }
-              });
+            };
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        axios({
+                            method: 'post',
+                            url: '/place/save',
+                            data: {
+                                title:this.$data.ruleForm.title ,
+                                uid: '1',
+                                phone:"11111",
+                                details:this.$data.ruleForm.details ,
+                                img:this.$data.ruleForm.img ,
+                                price:this.$data.ruleForm.price ,
+                                type:this.$data.ruleForm.type ,
+                            }
+                        });
+
+
+                        console.log(this.$data.ruleForm.title);
+                        this.$reqs.post("/upload", this.param, config).then(function(result) {
+                            console.log(result);
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
             },
             resetForm(formName) {
-              this.$refs[formName].resetFields();
+                this.$refs[formName].resetFields();
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                //this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                this.$data.ruleForm.img='';
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
+            submitUpload() {
+                this.$refs.upload.submit();
+            },
+            uploadfun(response, file, fileList){
+                this.$data.ruleForm.img=response.data;
             }
-          }
         }
+    }
 
-        var Ctor = Vue.extend(Main)
-new Ctor().$mount('#app')
-//注意：导航 依赖 element 模块，否则无法进行功能性操作
-layui.use('element', function(){
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
 
-var element = layui.element;
+        var element = layui.element;
 
 //…
-});
+    });
       </script>
     
 

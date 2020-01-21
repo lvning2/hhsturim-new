@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @ToString
@@ -39,6 +40,9 @@ public class Place {
 
     @Column(name = "state")
     private Integer state;
+
+    @Column(name = "createTime")
+    private Date createTime;
 
 }
 
