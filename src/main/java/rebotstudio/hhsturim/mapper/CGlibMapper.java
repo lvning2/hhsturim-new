@@ -1,6 +1,7 @@
 package rebotstudio.hhsturim.mapper;
 
 import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

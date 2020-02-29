@@ -57,9 +57,9 @@ public class PlaceController {
 
     @PostMapping("/save")
     @ApiOperation("保存一个地点信息")
-    public ResultVo savePlace(Place place){
-
-        return new ResultVo();
+    public ResultVo savePlace(@RequestBody Place place){
+        placeService.savePlace(place);
+        return new ResultVo(StatusCode.SAVE_SUCCESS.code,StatusCode.SAVE_SUCCESS.dsc,null);
     }
 
 

@@ -41,4 +41,7 @@ public class User implements Serializable {
     @Column(name = "mark")
     private Integer mark;
 
+    @Column(name = "idCard")
+    private String idCard;
+
 }

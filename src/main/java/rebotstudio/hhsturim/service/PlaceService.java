@@ -57,6 +57,17 @@ public class PlaceService {
     }
 
     @Transactional
+    public void deleteTopById(Integer id){      //将id的地点从top中移除
+        Top one = topRepository.getOne(id);
+        topRepository.delete(one);
+    }
+
+    @Transactional
+    public void addTop(Top top){        // 添加一个top
+        topRepository.save(top);
+    }
+
+    @Transactional
     public List<PlaceVo> getBorder(){             //获取border
         List<PlaceVo> list=new ArrayList<>();
         List<Place> all = placeRepository.findAll();

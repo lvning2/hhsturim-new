@@ -35,4 +35,13 @@ public class LoginService {
         return null;
     }
 
+    @Transactional
+    public void register(User user){
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+
+
 }
