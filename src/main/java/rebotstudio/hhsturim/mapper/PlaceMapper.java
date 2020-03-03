@@ -3,6 +3,9 @@ package rebotstudio.hhsturim.mapper;
 import rebotstudio.hhsturim.entity.Place;
 import rebotstudio.hhsturim.vo.PlaceVo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlaceMapper {
 
     public static PlaceVo toVo(Place place){
@@ -35,6 +38,14 @@ public class PlaceMapper {
 
         return placeVo;
 
+    }
+    public static List<PlaceVo> toVoList(List<Place> places){
+        List<PlaceVo> placeVos=new ArrayList<>();
+        for(Place p:places){
+            PlaceVo placeVo = toVo(p);
+            placeVos.add(placeVo);
+        }
+        return placeVos;
     }
 
 }

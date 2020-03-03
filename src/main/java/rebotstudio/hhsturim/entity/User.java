@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @ToString
@@ -43,5 +44,11 @@ public class User implements Serializable {
 
     @Column(name = "idCard")
     private String idCard;
+
+    @Column(name = "lastLoginTime")
+    private Date lastLoginTime;
+
+    @Column(name = "lastLoginIp")
+    private String lastLoginIp;
 
 }

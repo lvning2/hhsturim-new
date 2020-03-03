@@ -15,7 +15,7 @@
 
         background-size: 100% 100%;
         background-repeat: no-repeat;
-        background-image: url('img/bgimg0.jpg');
+        background-image: url('img/bgimg3.jpg');
       
 }
 
@@ -223,32 +223,33 @@
 
 <div class="main-out">
     <ul class="layui-nav" lay-filter="">
-        <li class="layui-nav-item"><a href="">首页</a></li>
-        <li class="layui-nav-item layui-this"><a href="">产品</a></li>
-        <li class="layui-nav-item"><a href="javascript:;"><font color="black">我是业主</font></a>
+        <li class="layui-nav-item layui-this"><a href="">首页</a></li>
+<!--        <li class="layui-nav-item "><a href="">产品</a></li>-->
+        <li class="layui-nav-item"><a href="javascript:;">我是业主</font></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a href="/release.html">发布信息</a></dd>
-                <dd><a href="">我的租赁</a></dd>
+                <dd><a href="/myList.html">我的租赁</a></dd>
             </dl>
 
         </li>
-        <li class="layui-nav-item"><a href="">大数据</a></li>
+<!--        <li class="layui-nav-item"><a href="">大数据</a></li>-->
         <li class="layui-nav-item">
             <a href="javascript:;">解决方案</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a href="">移动模块</a></dd>
                 <dd><a href="">后台模版</a></dd>
-                <dd><a href="">电商平台</a></dd>
+<!--                <dd><a href="">电商平台</a></dd>-->
             </dl>
         </li>
         <li class="layui-nav-item"><a href="">最新活动</a></li>
         <li class="layui-nav-item"><a href="">社区</a></li>
+        <li class="layui-nav-item"><a href="/console/console.html">控制台</a></li>
         <li class="layui-nav-item">
             <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
             <dl class="layui-nav-child">
                 <dd><a href="javascript:;">修改信息</a></dd>
                 <dd><a href="javascript:;">安全管理</a></dd>
-                <dd><a href="javascript:;">退了</a></dd>
+                <dd><a href="javascript:;">退出</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item login-nav"><a href="">登录</a></li>
@@ -273,7 +274,8 @@
 
         <div class="main-top">
           <div v-for="(item,i) in list"  class="list_item_top layui-anim">
-                <a :href="href+item.id" target="_blank"><img class="list_item_top_img" @mouseover="bg(i)" :title="item.title" :src="item.img"></a>
+                <a :href="href+item.id" target="_blank"><img class="list_item_top_img"    :title="item.title" :src="item.img"></a>
+<!--      @mouseover="bg(3)"      -->
           </div>
 
           <!-- <div class="list_item_top  layui-anim">
@@ -435,9 +437,9 @@
 
       },
       methods:{
-        bg:function(i){
-            $('.main-out').css('background-image','url("img/bgimg'+i+'.jpg")');
-          } 
+      //   bg:function(i){
+      //       $('.main-out').css('background-image','url("img/bgimg'+i+'.jpg")');
+      //     }
       }
 
   })

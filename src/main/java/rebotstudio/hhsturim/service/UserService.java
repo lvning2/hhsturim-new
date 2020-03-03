@@ -17,9 +17,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUser(PageRequest pageRequest){          //获取所有用户，分页
-        Page<User> all = userRepository.findAll(pageRequest);
-        return all.getContent();
+    public Page<User> getAllUser(PageRequest pageRequest){          //获取所有用户，分页
+        return userRepository.findAll(pageRequest);
+        //return all.getContent();
     }
 
     public User getUserById(Integer id){        //根据用户id获取用户信息
@@ -29,6 +29,10 @@ public class UserService {
     public void deleteUserById(Integer id){           //根据用户id删除一个用户
         User one = userRepository.getOne(id);
         userRepository.delete(one);
+    }
+
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
 

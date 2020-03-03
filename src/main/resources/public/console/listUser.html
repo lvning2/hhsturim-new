@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list-user</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/layui/layui.js"></script>
+    <script src="/js/getUrlParam.js"></script>
+</head>
+<body>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+
+
+
+</body>
+<script>
+
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            , url: "/user/getAllUser"
+//全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            , cols: [[
+                {field: 'id', width: '12%', title: 'id'}
+                ,{field: 'username', width: '10%', title: '用户名'}
+                , {field: 'idCard', width: '10%', title: '身份证', } //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                , {field: 'phone', width: '15%', title: '电话' }
+                , {field: 'state', width: '10%', title: '状态'}
+                , {field: 'lastLoginTime', width: '13%', title: '最后登录时间',sort: true}
+                , {field: 'lastLoginIp', width: '13%', title: '最后登录IP',sort: true}
+                ,{field:'lock', title:'是否锁定', width:110, templet: '#checkboxTpl', unresize: true}
+                , {fixed: 'right',  align:'center', toolbar: '#barDemo'}
+            ]]
+            ,page:true
+        });
+
+        //监听锁定操作
+        form.on('checkbox(test)', function(obj){
+            alert("已锁定");
+            layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+        });
+
+    });
+
+// 操作：锁定 编辑  删除
+
+</script>
+
+<script type="text/html" id="checkboxTpl">
+    <!-- 这里的 checked 的状态只是演示 -->
+    <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="lockDemo" {{
+
+           d.id == 10006 ? 'checked' : ''
+
+    }}>
+</script>
+
+<script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</html>

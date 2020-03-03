@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.entity.User;
@@ -21,10 +22,11 @@ public class UserController {
     }
 
     @GetMapping("/getAllUser")
-    public ResultVo getAllUser(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size){
-        PageRequest of = PageRequest.of(page, size);
-        List<User> users = userService.getAllUser(of);
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc, UserMapper.toVoList(users));
+    public ResultVo getAllUser(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size){
+        PageRequest of = PageRequest.of(page-1, size);
+        Page<User> allUser = userService.getAllUser(of);
+        List<User> users =allUser.getContent();
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,allUser.getTotalElements(),UserMapper.toVoList(users));
     }
 
     @GetMapping("/getUserById")

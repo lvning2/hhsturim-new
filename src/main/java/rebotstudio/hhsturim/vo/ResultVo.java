@@ -11,6 +11,8 @@ public class ResultVo {
 
     private String msg;
 
+    private long count=0;
+
     private Object data;
 
     public ResultVo(){}
@@ -20,4 +22,12 @@ public class ResultVo {
         this.msg = msg;
         this.data = data;
     }
+
+    public ResultVo(Integer code, String msg,long count ,Object data) {
+        this.code = code;
+        this.msg = msg;
+        this.count=count;
+        this.data = data;
+    }
+
 }

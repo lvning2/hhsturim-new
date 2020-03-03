@@ -1,7 +1,9 @@
 package rebotstudio.hhsturim.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
+import org.apache.shiro.authc.UsernamePasswordToken;
 
 import java.util.Date;
 
@@ -28,6 +30,10 @@ public class PlaceVo {
 
     private String state;
     private Float price;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+
+
 
 }

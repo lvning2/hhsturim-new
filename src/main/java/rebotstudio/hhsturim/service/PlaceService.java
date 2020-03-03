@@ -29,7 +29,16 @@ public class PlaceService {
 
     @Transactional
     public List getAll(){        //获取所有的地点信息
-       return placeRepository.findAll();
+
+
+        List<Place> all = placeRepository.findAll();
+        List<PlaceVo> placeVos = PlaceMapper.toVoList(all);
+        for (PlaceVo placeVo : placeVos){
+            User user = userRepository.getOne(placeVo.getUid());
+            placeVo.setUsername(user.getUsername());
+        }
+
+        return placeVos;
     }
 
     @Transactional

@@ -1,12 +1,19 @@
 package rebotstudio.hhsturim.service;
 
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.DefaultSessionKey;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import rebotstudio.hhsturim.entity.Syslog;
 import rebotstudio.hhsturim.entity.User;
+import rebotstudio.hhsturim.repository.SyslogRepository;
 import rebotstudio.hhsturim.repository.UserRepository;
 
 import javax.transaction.Transactional;
+import java.io.Serializable;
+import java.util.Date;
 
 @Service
 public class LoginService {
@@ -14,19 +21,24 @@ public class LoginService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private SessionManager sessionManager;
+
+    @Autowired
+    private SyslogRepository syslogRepository;
+
     @Transactional
-    public User login(String username,String password){
+    public User login(String username,String password,String ip){
         User user = userRepository.findByUsername(username);
 
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
         if(user!=null){
             boolean flog = bCryptPasswordEncoder.matches(password, user.getPassword());
             if(flog){
-                User login=new User();
-                login.setName(user.getName());
-                login.setId(user.getId());
-                login.setUsername(user.getUsername());
-                return login;
+                user.setLastLoginIp(ip);
+                user.setLastLoginTime(new Date());
+                userRepository.save(user);
+                return user;
             }else {
                 return null;
             }
@@ -42,6 +54,10 @@ public class LoginService {
         userRepository.save(user);
     }
 
+    private Session getSessionBysessionId(Serializable sessionId){
+        Session kickoutSession = sessionManager.getSession(new DefaultSessionKey(sessionId));
+        return kickoutSession;
+    }
 
 
 }

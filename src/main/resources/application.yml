@@ -1,5 +1,9 @@
 server:
-  port: 8081
+  port: 8091
+
+#  servlet:
+#    session:
+#      timeout: 1m
 
 #上传图片存放路径
 hhsturim:
@@ -23,4 +27,5 @@ spring:
       ddl-auto: update
 #    open-in-view: false
 
-
+shiro:
+  loginUrl: /login.html

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/layui/layui.js"></script>
+    <script src="/js/getUrlParam.js"></script>
+</head>
+<body>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+
+
+
+
+</body>
+    <script>
+
+        layui.use('table', function () {
+            var table = layui.table;
+
+            table.render({
+                elem: '#test'
+                , url: "/place/getAllPlace"
+//全局定义常规单元格的最小宽度，layui 2.2.1 新增
+                , cols: [[
+                    {field: 'title', width: '12%', title: '主题'}
+                    ,{field: 'details', width: '30%', title: '详细信息'}
+                    , {field: 'type', width: '10%', title: '类型', sort: true} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    , {field: 'username', width: '15%', title: '发布人' }
+                    , {field: 'phone', width: '10%', title: '电话'}
+                    , {field: 'createTime', width: '13%', title: '发布时间',sort: true}
+                    , {fixed: 'right',  align:'center', toolbar: '#barDemo'}
+                ]]
+            });
+        });
+
+
+    </script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</html>
