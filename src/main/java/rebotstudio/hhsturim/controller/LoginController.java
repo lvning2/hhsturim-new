@@ -17,7 +17,9 @@ import rebotstudio.hhsturim.service.SyslogService;
 import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.UserVo;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResultVo login(String username,String password, HttpServletRequest request){
+    public ResultVo login(String username, String password, HttpServletRequest request, HttpServletResponse response){
 //1.获取Subject
         Subject subject = SecurityUtils.getSubject();
         //2.封装用户数据
@@ -78,6 +80,13 @@ public class LoginController {
 
             Syslog syslog=new Syslog(username,"登录成功",request.getRemoteAddr(),new Date());
             syslogService.saveSyslog(syslog);
+            Cookie cookie1=new Cookie("userid",userVo.getId()+"");
+            Cookie cookie2=new Cookie("username",user.getUsername());
+            Cookie cookie3=new Cookie("rid",userVo.getRid()+"");
+
+            response.addCookie(cookie1);
+            response.addCookie(cookie2);
+            response.addCookie(cookie3);
             return new ResultVo(0,"登录成功",userVo);
         } catch (UnknownAccountException e) {
             //登录失败:用户名不存在
@@ -106,7 +115,8 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout",method = {RequestMethod.GET,RequestMethod.POST})
-    public ResultVo logout(HttpServletRequest request){
+    //@ResponseBody
+    public String logout(HttpServletRequest request,HttpServletResponse response){
 
 //        UserVo user =(UserVo) request.getSession().getAttribute("user");
 //
@@ -128,7 +138,17 @@ public class LoginController {
 
         request.getSession().removeAttribute("user");
 
-        return new ResultVo(0,"退出成功",null);
+        Cookie cookie1=new Cookie("userid",null);
+        Cookie cookie2=new Cookie("username",null);
+        Cookie cookie3=new Cookie("rid",null);
+
+        response.addCookie(cookie1);
+        response.addCookie(cookie2);
+        response.addCookie(cookie3);
+
+
+//        return new ResultVo(0,"退出成功",null);
+        return "/main.html";
     }
 
 

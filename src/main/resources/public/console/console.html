@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/js/jquery-3.4.1.js"></script>
     <script src="/layui/layui.js"></script>
-    <script src="/js/getUrlParam.js"></script>
+
  <style>
      #hhstu-logo{
          width: 60%;
@@ -84,7 +84,6 @@
     //iframe页面跳转
     $(document).ready(function(){
 
-        let gid = $.getUrlParam("gid");
         $("li>a").click(function (e) {
             e.preventDefault();
             $("#ifa").attr("src",$(this).attr("href"));

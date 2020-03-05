@@ -29,3 +29,5 @@ spring:
 
 shiro:
   loginUrl: /login.html
+
+

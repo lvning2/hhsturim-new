@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import rebotstudio.hhsturim.interceptor.LoginInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -15,8 +16,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-//       registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login","/register","/login.html","/register.html")
-//       .excludePathPatterns("/css/**","/js/**","/img/**","/layui/**","/imgs/**");
+       registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**")
+               .excludePathPatterns("/login","/register","/login.html","/register.html","/main.html","/info.html")
+               .excludePathPatterns("/css/**","/js/**","/img/**","/layui/**","/imgs/**")
+               .excludePathPatterns("/swagger-resources/**","/v2/**","/webjars/**","/swagger-ui.html/**");;
 
     }
 

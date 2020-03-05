@@ -78,6 +78,7 @@ public class SystemMagController {
         session.removeAttribute("user");
 
 
+
         return new ResultVo(0,"踢出成功",null);
     }
 

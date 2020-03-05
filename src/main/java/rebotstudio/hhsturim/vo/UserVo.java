@@ -36,5 +36,6 @@ public class UserVo {
     private String lastLoginIp;
 
     private String sessionId;
+    private Integer rid;
 
 }

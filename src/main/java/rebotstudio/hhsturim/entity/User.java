@@ -51,4 +51,7 @@ public class User implements Serializable {
     @Column(name = "lastLoginIp")
     private String lastLoginIp;
 
+    @Column(name = "rid")
+    private Integer rid;
+
 }

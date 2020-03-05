@@ -8,7 +8,7 @@
     <script src="js/jquery-3.4.1.js" type="text/javascript"></script>
     <script src="js/vue.js"></script>
     <script src="js/config.js"></script>
-
+    <script src="js/jquery.cookie.min.js"></script>
     <style>
 
 .main-out{
@@ -18,6 +18,9 @@
         background-image: url('img/bgimg3.jpg');
       
 }
+ a{
+     cursor: pointer;
+ }
 
 .layui-nav{
   background-color:rgba(	255,255,255,.14);
@@ -27,31 +30,19 @@
 
       #main{
         width: 100%;
-        /* height: 40.5%; */
-        /* height: 42.6%; */
         height: 40%;
-
         padding-top: 2.5%;
         padding-bottom: 2.5%;
-        /* background-color:#666; */
-        /* background-image: url('img/bgimg3.jpg'); */
         background-size: 100% 100%;
         background-repeat: no-repeat;
   
       }
 
 
-
-
       .main-top{
-          /* width: 1400px; */
-          /* width: 73%; */
           width: 70%;
-          /* height: 380px; */
-          /* height: 40.5%; */
           height: 100%;
           margin: 0 auto;
-          /* border: 1px solid red; */
           padding: 0%;
           
         }
@@ -59,13 +50,10 @@
         .list_item_top {
           box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
           float: left;
-          /* width:280px; */
           width:20%;
-          /* height:380px; */
           height: 100%;
           cursor: pointer;
           transition: all 0.1s;
-            /* border: 2px solid red; */
         }
 
         .list_item_top_img{
@@ -98,61 +86,10 @@
         }
 
         #border{
-          /* width: 80%;
-          height: 380px; */
           width: 73%;
-          /* height: auto; */
           margin: 0 auto;
           height: calc(100% - 200px);
-          /* border: 1px solid black; */
         }
-    
-        
-
-        /* .border_list_item{
-          width: 90%;
-          margin: 0 auto; */
-          /* border: 1px solid red; */
-          /* height: 1000px; */
-        /* } */
-        /* .list_item_center{
-          float: left;
-          width:22%;
-          height: 280px;
-          padding: 1.5%;
-        }
-        .list_item_center_img{
-            width: 100%;
-            height: 100%;
-        } */
-
-        /* .folding:hover{
-          /* display: none; */
-          /* height: 50px;
-          transition: all 0.3s linear;
-        }  */
-        /* .list_item_center_img:hover{
-          display: list-item;
-          background-color: blue;
-          height: 50px;
-        } */
-        /* .folding{
-          height: 0;
-          overflow: hidden;
-        } */
-        /* .ceshi{
-          overflow: hidden;
-        } */
-
-        /* .ceshi:hover .folding{
-          transition: all 0.3 linear;
-            /* position: relative; */
-            /* height: 100px; */
-
-        /* }  */
-
-
-
 
         .item{
         width: 100%;
@@ -171,7 +108,6 @@
         height: 250px;
         transition: height 0.8s;
         overflow: hidden;
-        /* z-index: 5; */
         position: relative;
         padding-left: 5%;
 
@@ -205,25 +141,22 @@
       
       height: 300px;
       border: 2px blue solid;
-      
-
-
-      /* bottom:0; */
 
     }
         .login-nav{
             float: right;
         }
+
        
     </style>
 
 </head>
 
-<body>
+<body >
 
 <div class="main-out">
-    <ul class="layui-nav" lay-filter="">
-        <li class="layui-nav-item layui-this"><a href="">首页</a></li>
+    <ul id="my-layui-top" class="layui-nav" lay-filter="">
+        <li class="layui-nav-item layui-this"><a href="/main.html">首页</a></li>
 <!--        <li class="layui-nav-item "><a href="">产品</a></li>-->
         <li class="layui-nav-item"><a href="javascript:;">我是业主</font></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
@@ -243,8 +176,9 @@
         </li>
         <li class="layui-nav-item"><a href="">最新活动</a></li>
         <li class="layui-nav-item"><a href="">社区</a></li>
-        <li class="layui-nav-item"><a href="/console/console.html">控制台</a></li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item" v-show="isadmin"><a href="/console/console.html">控制台</a></li>
+        <li class="layui-nav-item"  v-show="notlogin" >
+<!--            v-bind:class="{mylogin : islogin}"-->
             <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
             <dl class="layui-nav-child">
                 <dd><a href="javascript:;">修改信息</a></dd>
@@ -252,47 +186,18 @@
                 <dd><a href="javascript:;">退出</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item login-nav"><a href="">登录</a></li>
+        <li class="layui-nav-item login-nav" v-show="islogin" ><a href="/login.html">登录</a></li>
+        <li class="layui-nav-item login-nav" v-show="notlogin" ><a href="/logout">退出</a></li>
     </ul>
 
-
-      <!-- <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-        <ul class="layui-tab-title">
-          <li class="layui-this">网站设置</li>
-          <li>用户管理</li>
-          <li>权限分配</li>
-          <li>商品管理</li>
-          <li>订单管理</li>
-        </ul>
-        <div class="layui-tab-content"></div>
-      </div>  -->
-
-
-      <!-- main  5个大图片 -->
     
     <div id="main">
 
         <div class="main-top">
           <div v-for="(item,i) in list"  class="list_item_top layui-anim">
                 <a :href="href+item.id" target="_blank"><img class="list_item_top_img"    :title="item.title" :src="item.img"></a>
-<!--      @mouseover="bg(3)"      -->
           </div>
 
-          <!-- <div class="list_item_top  layui-anim">
-            <img class="list_item_top_img" src="img/图片1.png">
-          </div>
-
-          <div class="list_item_top  layui-anim">
-            <img class="list_item_top_img" src="img/图片1.png">
-          </div>
-
-          <div class="list_item_top  layui-anim">
-            <img class="list_item_top_img" src="img/图片1.png">
-          </div>
-
-          <div class="list_item_top  layui-anim">
-            <img class="list_item_top_img" src="img/图片1.png">
-          </div> -->
 
         </div>
 
@@ -342,62 +247,6 @@
         
     </li>
 
-    <!-- <li class="item-list">
-        <div class="item-list-top">
-            <img class="list_item_img" src="img/bgimg1.jpg">
-            <div class="list-item-bottom">
-                <p>你好</p>
-            </div>
-        </div>
-        
-
-    </li>
-
-
-    <li class="item-list">
-        <div class="item-list-top">
-            <img class="list_item_img" src="img/bgimg2.jpg">
-            <div class="list-item-bottom">
-                <p>你好</p>
-            </div>
-        </div>
-        
-
-    </li>
-
-    <li class="item-list">
-        <div class="item-list-top">
-            <img class="list_item_img" src="img/bgimg1.jpg">
-            <div class="list-item-bottom">
-                <p>你好</p>
-            </div>
-        </div>
-        
-
-    </li>
-
-    <li class="item-list">
-        <div class="item-list-top">
-            <img class="list_item_img" src="img/bgimg1.jpg">
-            <div class="list-item-bottom">
-                <p>你好</p>
-            </div>
-        </div>
-        
-    </li>
-
-
-    <li class="item-list">
-        <div class="item-list-top">
-            <img class="list_item_img" src="img/bgimg1.jpg">
-            <div class="list-item-bottom">
-                <p>你好</p>
-            </div>
-        </div>
-        
-
-    </li> -->
-
 </ul>
 
   
@@ -421,25 +270,43 @@
   <script>
   //注意：导航 依赖 element 模块，否则无法进行功能性操作
   layui.use('element', function(){
-
     var element = layui.element;
-    
-    //…
   });
 
- 
+
+  var vm_mylogin=new Vue({              // 控制 登录 我 是否显示
+      el:"#my-layui-top",
+      data:{
+          islogin:false,
+          notlogin:true,
+          isadmin:false
+      },
+
+  });
+
+ $(function () {
+     if($.cookie('username')){  //  登录
+         vm_mylogin.islogin=false;
+         console.log("aaaaa"+$.cookie('username'));
+     }else {        //      未登录
+         vm_mylogin.islogin=true;
+         vm_mylogin.notlogin=false;
+     }
+     if($.cookie('rid')){
+
+         if($.cookie('rid')==='0'){
+             vm_mylogin.isadmin=true;
+         }
+     }
+
+ })
+
 
   var vm_list_item_top=new Vue({
       el:".main-top",
       data:{
         list:"",
         href:''
-
-      },
-      methods:{
-      //   bg:function(i){
-      //       $('.main-out').css('background-image','url("img/bgimg'+i+'.jpg")');
-      //     }
       }
 
   })
@@ -529,7 +396,6 @@
 
 
 
-
 $(function(){
     $.ajax({
               url:host+"/place/getPlaceTop",
@@ -561,6 +427,8 @@ $(function(){
             })
 
 })
+
+
 
   </script>
   
