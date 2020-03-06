@@ -130,7 +130,9 @@ public class LoginController {
 //                map.remove(user.getId());
 //            }
 //        }
-
+        Subject subject = SecurityUtils.getSubject();
+        //subject.logout();
+        subject.getSession().removeAttribute("user");
         ConcurrentHashMap<String, HttpSession> sessions =( ConcurrentHashMap<String, HttpSession>) request.getSession().getServletContext().getAttribute("sessions");
         if(!sessions.containsKey(request.getSession().getId())){
             sessions.remove(request.getSession().getId());
@@ -148,7 +150,7 @@ public class LoginController {
 
 
 //        return new ResultVo(0,"退出成功",null);
-        return "/main.html";
+        return "redirect:/main.html";
     }
 
 

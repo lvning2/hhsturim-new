@@ -1,9 +1,6 @@
 server:
   port: 8091
 
-#  servlet:
-#    session:
-#      timeout: 1m
 
 #上传图片存放路径
 hhsturim:

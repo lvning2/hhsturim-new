@@ -54,6 +54,14 @@ public class PlaceService {
         return placeVo;
     }
 
+    public List<PlaceVo> getPlaceByUserId(Integer uid){
+        User user = userRepository.getOne(uid);
+        List<Place> places = placeRepository.findByUid(uid);
+        List<PlaceVo> placeVos = PlaceMapper.toVoList(places);
+        placeVos.forEach(placeVo -> {placeVo.setUsername(user.getUsername());});
+        return placeVos;
+    }
+
     @Transactional
     public List<Place> getTop(){            //获取top
         List<Top> all = topRepository.findAll();

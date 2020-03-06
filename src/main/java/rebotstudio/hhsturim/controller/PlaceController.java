@@ -2,11 +2,19 @@ package rebotstudio.hhsturim.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.entity.Place;
 import rebotstudio.hhsturim.service.PlaceService;
+import rebotstudio.hhsturim.vo.PlaceVo;
 import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.StatusCode;
+import rebotstudio.hhsturim.vo.UserVo;
+
+import java.rmi.server.UID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/place")
@@ -62,6 +70,14 @@ public class PlaceController {
         return new ResultVo(StatusCode.SAVE_SUCCESS.code,StatusCode.SAVE_SUCCESS.dsc,null);
     }
 
-
+    @GetMapping("/getPlaceByUserId")
+    @ApiOperation("根据用户id获取发布的信息")
+    public ResultVo getPlaceByUserId(){
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+        UserVo user =(UserVo) session.getAttribute("user");
+        List<PlaceVo> list = placeService.getPlaceByUserId(user.getId());
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,list.size(),list);
+    }
 
 }

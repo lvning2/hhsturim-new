@@ -11,4 +11,6 @@ public interface PlaceRepository extends JpaRepository<Place,Integer> {
 
     List<Place> findPlaceByPriceBetween(Float start,Float end);
 
+    List<Place> findByUid(Integer uid);
+
 }

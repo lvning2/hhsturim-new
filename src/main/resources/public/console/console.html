@@ -5,6 +5,7 @@
     <title>管理控制台</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/js/jquery.cookie.min.js"></script>
     <script src="/layui/layui.js"></script>
 
  <style>
@@ -28,7 +29,7 @@
             <li class="layui-nav-item" ><div><a href="/main.html">首页</a></div></li>
             <li class="layui-nav-item">
       	<span style="font-family: '楷体'; font-size: 18px;" >
-      			 <span  style="font-family: '楷体'; font-size: 20px;color: #009F95;" id="uname" th:text="${user.uname}">${uname}</span>
+      			 <span  style="font-family: '楷体'; font-size: 20px;color: #009F95;" id="username" >${username}</span>
       	</span>
             </li>
             <li class="layui-nav-item" ><a href="/login.html">退出</a></li>
@@ -95,6 +96,11 @@
         });
 
     });
+
+    $(function () {
+        var un= $.cookie('username')
+        $("#username").text(un);
+    })
 
 </script>
 
