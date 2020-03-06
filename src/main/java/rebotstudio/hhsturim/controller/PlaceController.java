@@ -13,7 +13,7 @@ import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.StatusCode;
 import rebotstudio.hhsturim.vo.UserVo;
 
-import java.rmi.server.UID;
+
 import java.util.List;
 
 @RestController
@@ -81,3 +81,5 @@ public class PlaceController {
     }
 
 }
+
+

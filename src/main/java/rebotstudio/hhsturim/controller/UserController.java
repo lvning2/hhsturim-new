@@ -40,6 +40,13 @@ public class UserController {
         return new ResultVo(StatusCode.DELETE_SUCCESS.code,StatusCode.DELETE_SUCCESS.dsc,null);
     }
 
+    @PostMapping("/updateUserById")
+    public ResultVo updateUserById(Integer id,String name,String Phone,Integer age,String idCard,String address){
+        System.out.println(name);
+        userService.updateUserById(id,name,Phone,age,idCard,address);
+        return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
+    }
+
 
 }
 

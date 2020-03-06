@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user-info</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="/layui/layui.js"></script>
+    <script src="/js/vue.js"></script>
+    <script src="/js/getUrlParam.js"></script>
+</head>
+<body>
+
+<form class="layui-form" id="userInfo">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" readonly="readonly " name="username" v-model="username" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" v-model="name" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-block">
+            <input type="number" name="age" v-model="age" lay-verify="title" autocomplete="off" placeholder="请输入年龄" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-input-block">
+            <input type="number" name="phone" v-model="phone" lay-verify="title" autocomplete="off" placeholder="请输入电话" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证</label>
+        <div class="layui-input-block">
+            <input type="number" name="idCard" v-model="idCard" lay-verify="title" autocomplete="off" placeholder="请输入身份证号码" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" name="address" v-model="address" lay-verify="title" autocomplete="off" placeholder="请输入地址" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" v-model="id" lay-verify="title" autocomplete="off" placeholder="id" class="layui-input">
+        </div>
+    </div>
+
+
+</form>
+
+
+
+</body>
+
+<script>
+    var id = $.getUrlParam('id');
+
+    var info=new Vue({
+        el:"#userInfo",
+        data:{
+            id:"",
+            username:"",
+            name:"",
+            phone:"",
+            age:"",
+            idCard:"",
+            address:""
+        }
+    });
+
+  $(function () {
+      $.ajax({
+          url:"/user/getUserById",
+          data:{
+              "id":id,
+          },
+          type:'get',
+          success:function(data){
+              if(data.code===0){
+                  info.id=id;
+                  info.username=data.data.username;
+                    info.name=data.data.name;
+                    info.phone=data.data.phone;
+                    info.age=data.data.age;
+                    info.idCard=data.data.idCard;
+                    info.address=data.data.address;
+              }
+
+
+          }
+      })
+
+
+  })
+
+    function update() {
+        $.ajax({
+            url:"/user/updateUserById",
+            data:{
+                "id":info.id,
+                "name":info.name,
+                "phone":info.phone,
+                "age":info.age,
+                "idCard":info.idCard,
+                "address":info.address
+            },
+            type:'post',
+            success:function(data) {
+                if (data.code === 0) {
+
+                }
+
+
+            }
+        })
+    }
+
+</script>
+
+
+
+</html>

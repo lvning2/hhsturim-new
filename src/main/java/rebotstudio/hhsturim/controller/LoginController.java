@@ -110,6 +110,11 @@ public class LoginController {
     @PostMapping("/register")
     @ResponseBody
     public ResultVo register(@RequestBody User user){
+
+        user.setMark(0);
+        user.setRid(0);
+        user.setState(0);
+        System.out.println(user);
         loginService.register(user);
         return new ResultVo(0,"注册成功",null);
     }

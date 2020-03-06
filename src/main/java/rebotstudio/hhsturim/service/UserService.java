@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim.service;
 
+import org.hibernate.sql.Update;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,14 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public void updateUserById(Integer id,String name,String Phone,Integer age,String idCard,String address){
+        User user = userRepository.getOne(id);
+        user.setName(name);
+        user.setPhone(Phone);
+        user.setAge(age);
+        user.setIdCard(idCard);
+        user.setAddress(address);
+        userRepository.save(user);
+    }
 
 }

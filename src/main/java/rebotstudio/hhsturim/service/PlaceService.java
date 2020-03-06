@@ -14,6 +14,7 @@ import rebotstudio.hhsturim.vo.PlaceVo;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlaceService {
@@ -89,9 +90,12 @@ public class PlaceService {
         List<PlaceVo> list=new ArrayList<>();
         List<Place> all = placeRepository.findAll();
         for(Place x:all){
-            User one = userRepository.getOne(x.getUid());
+            Optional<User> optional = userRepository.findById(x.getUid());
+
             PlaceVo placeVo = PlaceMapper.toVo(x);
-            placeVo.setUsername(one.getUsername());
+            if(optional.isPresent()){
+                placeVo.setUsername(optional.get().getUsername());
+            }
             list.add(placeVo);
         }
        return list;
