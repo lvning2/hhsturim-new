@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim.service;
 
+import org.omg.PortableServer.POA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.Place;
@@ -128,6 +129,10 @@ public class PlaceService {
         return list;
     }
 
+    public void deletePlaceById(Integer pid){       // 根据id删除一个场所信息
+        Place place = placeRepository.getOne(pid);
+        placeRepository.delete(place);
+    }
 
 
 }

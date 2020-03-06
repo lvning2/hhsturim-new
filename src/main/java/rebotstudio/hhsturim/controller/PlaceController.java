@@ -80,6 +80,12 @@ public class PlaceController {
         return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,list.size(),list);
     }
 
+    @PostMapping("/deletePlaceById")
+    public ResultVo deletePlaceById(Integer id){
+        placeService.deletePlaceById(id);
+        return new ResultVo(StatusCode.DELETE_SUCCESS.code,StatusCode.DELETE_SUCCESS.dsc,null);
+    }
+
 }
 
 
