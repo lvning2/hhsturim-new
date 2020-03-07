@@ -10,6 +10,7 @@
     <script src="/js/getUrlParam.js"></script>
 
 
+
 </head>
 <body>
 
@@ -29,6 +30,7 @@
             <input type="text"  name="title" v-model="title" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">
         </div>
     </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label">详细信息</label>
         <div class="layui-input-block">
@@ -43,12 +45,29 @@
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">类型</label>
-        <div class="layui-input-block">
-            <input type="text"  name="type" v-model="type" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">
-        </div>
-    </div>
+<!--    <div class="layui-form-item">-->
+<!--        <label class="layui-form-label">类型</label>-->
+<!--        <div class="layui-input-block">-->
+<!--            <input type="text"  name="type" v-model="type" lay-verify="title" autocomplete="off" placeholder="请输入用户名" class="layui-input">-->
+<!--        </div>-->
+<!--        <div id="aaa" >-->
+<!--            <label >类型</label>-->
+<!--            <div >-->
+<!--                <span>选中的值: {{ d }}</span>-->
+<!--                <select v-model="d" >-->
+<!--                    <option value="1">餐饮</option>-->
+<!--                    <option value="2">商业街</option>-->
+<!--                    <option value="3">娱乐</option>-->
+<!--                    <option value="4">集会</option>-->
+<!--                    <option value="5">竞赛</option>-->
+<!--                    <option value="6">训练</option>-->
+<!--                    <option value="7">其他</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--    </div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">价格</label>
@@ -57,16 +76,53 @@
         </div>
     </div>
 
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden"  name="id" v-model="id" lay-verify="title" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
 </form>
 
 
-
+<div id="aaa" class="layui-form-item">
+    <label class="layui-form-label">类型</label>
+    <select v-model="d" lay-verify="required" lay-search="">
+        <option value="1">餐饮</option>
+        <option value="2">商业街</option>
+        <option value="3">娱乐</option>
+        <option value="4">集会</option>
+        <option value="5">竞赛</option>
+        <option value="6">训练</option>
+        <option value="7">其他</option>
+    </select>
+</div>
 
 
 </body>
 
 
 <script>
+
+    var t=new Vue({
+        el:"#aaa",
+        data:{
+            d:6
+        }
+    })
+
+
+    layui.use('form', function(){
+        var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+
+        //……
+
+        //但是，如果你的HTML是动态生成的，自动渲染就会失效
+        //因此你需要在相应的地方，执行下述方法来进行渲染
+        form.render();
+    });
+
+
     var id = $.getUrlParam('id');
     var info=new Vue({
         el:"#placeInfo",
@@ -83,31 +139,9 @@
 
     $(function () {
         $.ajax({
-            url: "/place/getPlaceById/" + id,
-            // data:{
-            //     "id":id,
-            // },
-            type: 'get',
-            success: function (data) {
-                if (data.code === 0) {
-                    info.id = id;
-                    info.username = data.data.username;
-                    info.title = data.data.title;
-                    info.phone = data.data.phone;
-                    info.details = data.data.details;
-                    info.type = data.data.type;
-                    info.price = data.data.price;
-                }
-            }
-        })
-    })
-
-    function update() {
-
-        $.ajax({
-            url: "/place/updatePlaceById",
+            url: "/place/getPlaceById2" ,
             data:{
-                "id":info.id,
+                "id":id,
             },
             type: 'get',
             success: function (data) {
@@ -117,8 +151,30 @@
                     info.title = data.data.title;
                     info.phone = data.data.phone;
                     info.details = data.data.details;
-                    info.type = data.data.type;
+                    info.type = parseInt(data.data.type);
+                    t.d=data.data.type;
                     info.price = data.data.price;
+                }
+            }
+        })
+    })
+
+    function update() {
+        $.ajax({
+            url: "/place/updatePlaceById",
+            data:{
+                "id":info.id,
+                 // "username":info.username,
+                    "title":info.title ,
+                    "phone":info.phone ,
+                    "details":info.details ,
+                    "type":t.d  ,
+                    "price":info.price
+            },
+            type: 'post',
+            success: function (data) {
+                if (data.code === 0) {
+
                 }
             }
         })

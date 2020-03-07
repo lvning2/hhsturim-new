@@ -28,6 +28,8 @@ public class PlaceVo {
 
     private String type;   //
 
+    private Integer type2;
+
     private String state;
     private Float price;
 

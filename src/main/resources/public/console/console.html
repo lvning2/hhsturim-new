@@ -32,7 +32,7 @@
       			 <span  style="font-family: '楷体'; font-size: 20px;color: #009F95;" id="username" >${username}</span>
       	</span>
             </li>
-            <li class="layui-nav-item" ><a href="/login.html">退出</a></li>
+            <li id="logout" class="layui-nav-item" ><a href="/login.html">退出</a></li>
         </ul>
 
     </div>
@@ -85,7 +85,7 @@
     //iframe页面跳转
     $(document).ready(function(){
 
-        $("li>a").click(function (e) {
+        !$("li>a").not("#logout").click(function (e) {
             e.preventDefault();
             $("#ifa").attr("src",$(this).attr("href"));
         });

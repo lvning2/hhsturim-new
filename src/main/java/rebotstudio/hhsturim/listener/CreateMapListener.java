@@ -13,7 +13,7 @@ public class CreateMapListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("appplication创建");
+       // System.out.println("appplication创建");
         ConcurrentHashMap<Integer, UserVo> map = new ConcurrentHashMap<>();
         sce.getServletContext().setAttribute("map",map);
         ConcurrentHashMap<String, HttpSession> sessions = new ConcurrentHashMap<>();

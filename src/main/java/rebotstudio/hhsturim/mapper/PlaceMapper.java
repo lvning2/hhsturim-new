@@ -48,4 +48,20 @@ public class PlaceMapper {
         return placeVos;
     }
 
+    public static PlaceVo toVo2(Place place){
+        PlaceVo placeVo=new PlaceVo();
+        placeVo.setId(place.getId());
+        placeVo.setDetails(place.getDetails());
+        placeVo.setImg(place.getImg());
+        placeVo.setPhone(place.getPhone());
+        placeVo.setTitle(place.getTitle());
+        placeVo.setUid(place.getUid());
+        placeVo.setPrice(place.getPrice());
+        placeVo.setCreateTime(place.getCreateTime());
+        placeVo.setType(place.getType()+"");
+
+        return placeVo;
+
+    }
+
 }

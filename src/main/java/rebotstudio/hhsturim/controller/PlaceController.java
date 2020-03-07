@@ -38,6 +38,12 @@ public class PlaceController {
     public ResultVo getPlaceById(@PathVariable Integer id){
         return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getOne(id));
     }
+    @GetMapping("/getPlaceById2")
+    @ApiOperation("根据id获取地点信息--控制台页面使用")
+    public ResultVo getPlaceById2(Integer id){
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getById(id));
+    }
+
 
     @GetMapping("/getPlaceTop")
     @ApiOperation("获取top地点信息")
@@ -84,6 +90,12 @@ public class PlaceController {
     public ResultVo deletePlaceById(Integer id){
         placeService.deletePlaceById(id);
         return new ResultVo(StatusCode.DELETE_SUCCESS.code,StatusCode.DELETE_SUCCESS.dsc,null);
+    }
+
+    @PostMapping("/updatePlaceById")
+    public ResultVo updatePlaceById(Integer id,String title,String phone,String details,Integer type,Float price){
+        placeService.updatePlaceById(id,title,phone,details,type,price);
+        return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
     }
 
 }

@@ -56,6 +56,13 @@ public class PlaceService {
         return placeVo;
     }
 
+    @Transactional
+    public PlaceVo getById(Integer id){
+        PlaceVo placeVo = PlaceMapper.toVo2(placeRepository.getOne(id));
+        placeVo.setUsername(userRepository.getOne(placeVo.getUid()).getUsername());
+        return placeVo;
+    }
+
     public List<PlaceVo> getPlaceByUserId(Integer uid){
         User user = userRepository.getOne(uid);
         List<Place> places = placeRepository.findByUid(uid);
@@ -129,11 +136,22 @@ public class PlaceService {
         return list;
     }
 
+    @Transactional
     public void deletePlaceById(Integer pid){       // 根据id删除一个场所信息
         Place place = placeRepository.getOne(pid);
         placeRepository.delete(place);
     }
 
+    @Transactional
+    public void updatePlaceById(Integer id,String title,String phone,String details,Integer type,Float price){  // 根据id修改地点信息
+        Place place = placeRepository.getOne(id);
+        place.setTitle(title);
+        place.setPhone(phone);
+        place.setDetails(details);
+        place.setType(type);
+        place.setPrice(price);
+        placeRepository.save(place);
+    }
 
 }
 
