@@ -5,9 +5,14 @@ import io.swagger.annotations.ApiParam;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.entity.Place;
+import rebotstudio.hhsturim.entity.User;
+import rebotstudio.hhsturim.mapper.PlaceMapper;
 import rebotstudio.hhsturim.service.PlaceService;
+import rebotstudio.hhsturim.service.UserService;
 import rebotstudio.hhsturim.vo.PlaceVo;
 import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.StatusCode;
@@ -23,14 +28,27 @@ public class PlaceController {
 
     private final PlaceService placeService;
 
-    public PlaceController(PlaceService placeService) {
+    private final UserService userService;
+
+    public PlaceController(PlaceService placeService,UserService userService) {
         this.placeService = placeService;
+        this.userService=userService;
     }
 
     @GetMapping("/getAllPlace")
     @ApiOperation("获取所有地点信息")
-    public ResultVo getAllPlace(){
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getAll());
+    public ResultVo getAllPlace(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size){
+        PageRequest of = PageRequest.of(page-1, size);
+        Page<Place> pages = placeService.getAll(of);
+        List<Place> content = pages.getContent();
+
+        List<PlaceVo> placeVos = PlaceMapper.toVoList(content);
+        for (PlaceVo placeVo : placeVos){
+            User user = userService.getUserById(placeVo.getUid());
+            placeVo.setUsername(user.getUsername());
+        }
+
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeVos.size(),placeVos);
     }
 
     @GetMapping("/getPlaceById/{id}")

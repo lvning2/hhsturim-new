@@ -2,12 +2,11 @@ package rebotstudio.hhsturim.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.Syslog;
 import rebotstudio.hhsturim.repository.SyslogRepository;
 
-import java.util.List;
+
 
 @Service
 public class SyslogService {

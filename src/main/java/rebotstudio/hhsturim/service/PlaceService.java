@@ -2,6 +2,8 @@ package rebotstudio.hhsturim.service;
 
 import org.omg.PortableServer.POA;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.Place;
 import rebotstudio.hhsturim.entity.Top;
@@ -30,17 +32,20 @@ public class PlaceService {
     private TopRepository topRepository;
 
     @Transactional
-    public List getAll(){        //获取所有的地点信息
+    public Page<Place> getAll(PageRequest pageRequest){        //获取所有的地点信息
 
 
-        List<Place> all = placeRepository.findAll();
-        List<PlaceVo> placeVos = PlaceMapper.toVoList(all);
-        for (PlaceVo placeVo : placeVos){
-            User user = userRepository.getOne(placeVo.getUid());
-            placeVo.setUsername(user.getUsername());
-        }
+//        List<Place> all = placeRepository.findAll();
+////        List<PlaceVo> placeVos = PlaceMapper.toVoList(all);
+////        for (PlaceVo placeVo : placeVos){
+////            User user = userRepository.getOne(placeVo.getUid());
+////            placeVo.setUsername(user.getUsername());
+////        }
+////
+////        return placeVos;
+        Page<Place> page = placeRepository.findAll(pageRequest);
+        return page;
 
-        return placeVos;
     }
 
     @Transactional

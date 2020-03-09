@@ -1,13 +1,12 @@
 package rebotstudio.hhsturim.service;
 
-import org.hibernate.sql.Update;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.repository.UserRepository;
 
-import java.util.List;
 
 @Service
 public class UserService {
