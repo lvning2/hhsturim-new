@@ -108,6 +108,7 @@ public class PlaceService {
             PlaceVo placeVo = PlaceMapper.toVo(x);
             if(optional.isPresent()){
                 placeVo.setUsername(optional.get().getUsername());
+                placeVo.setPhone(optional.get().getPhone());
             }
             list.add(placeVo);
         }
@@ -122,6 +123,7 @@ public class PlaceService {
             User one = userRepository.getOne(x.getUid());
             PlaceVo placeVo = PlaceMapper.toVo(x);
             placeVo.setUsername(one.getUsername());
+            placeVo.setPhone(one.getPhone());
             list.add(placeVo);
         }
         return list;
@@ -136,6 +138,7 @@ public class PlaceService {
             User one = userRepository.getOne(x.getUid());
             PlaceVo placeVo = PlaceMapper.toVo(x);
             placeVo.setUsername(one.getUsername());
+            placeVo.setPhone(one.getPhone());
             list.add(placeVo);
         }
         return list;

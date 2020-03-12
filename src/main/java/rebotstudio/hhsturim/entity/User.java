@@ -54,4 +54,7 @@ public class User implements Serializable {
     @Column(name = "rid")
     private Integer rid;
 
+    @Column(name = "gender")
+    private String gender;
+
 }

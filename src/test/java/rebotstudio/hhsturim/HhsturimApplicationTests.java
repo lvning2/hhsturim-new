@@ -14,14 +14,8 @@ import java.net.URI;
 @SpringBootTest
 class HhsturimApplicationTests {
 
-    @Value("${hhsturim.uploadfilepath}")
-    String UPLOADFILEPATH;
-
     @Test
     void contextLoads() throws IOException {
-
-        System.out.println(UPLOADFILEPATH);
-
 
     }
 

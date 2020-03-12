@@ -103,13 +103,13 @@
 
         <el-form-item label="场地类型" prop="type">
             <el-radio-group v-model="ruleForm.type">
-                <el-radio value='1' label="餐饮"></el-radio>
-                <el-radio label="商业街"></el-radio>
-                <el-radio label="娱乐"></el-radio>
-                <el-radio label="集会"></el-radio>
-                <el-radio label="竞赛"></el-radio>
-                <el-radio label="训练"></el-radio>
-                <el-radio label="其他"></el-radio>
+                <el-radio value='1' label="1">餐饮</el-radio>
+                <el-radio value='2' label="2">商业街</el-radio>
+                <el-radio value='3' label="3">娱乐</el-radio>
+                <el-radio value='4' label="4">集会</el-radio>
+                <el-radio value='5' label="5">竞赛</el-radio>
+                <el-radio value='6' label="6">训练</el-radio>
+                <el-radio value='7' label="7">其他</el-radio>
             </el-radio-group>
         </el-form-item>
 
@@ -194,19 +194,33 @@
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
+                    var that=this;
                     if (valid) {
+
                         axios({
                             method: 'post',
                             url: '/place/save',
                             data: {
-                                title:this.$data.ruleForm.title ,
-                                uid: '1',
-                                phone:"11111",
-                                details:this.$data.ruleForm.details ,
-                                img:this.$data.ruleForm.img ,
-                                price:this.$data.ruleForm.price ,
-                                type:this.$data.ruleForm.type
+                                'title':this.$data.ruleForm.title ,
+                                'uid': $.cookie('userid'),
+                                'phone':"11111",
+                                'details':this.$data.ruleForm.details ,
+                                'img':this.$data.ruleForm.img ,
+                                'price':this.$data.ruleForm.price ,
+                                'type':this.$data.ruleForm.type
                             }
+                        }) .then(function (response) {
+                            if(response.data.code==0){
+                                that.$message({
+                                    message: '上传成功',
+                                    type: 'success'
+                                });
+                                setTimeout('window.location="/main.html"',1500)
+                            }else {
+                                that.$message.error('上传失败');
+                            }
+
+
                         });
 
                     } else {

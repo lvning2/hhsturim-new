@@ -72,24 +72,38 @@ public class PlaceController {
     @GetMapping("/getPlaceBorder")
     @ApiOperation("获取top地点信息")
     public ResultVo getPlaceBorder(){
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getBorder());
+        List<PlaceVo> border = placeService.getBorder();
+        if (border.size()>16){
+            return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,border.subList(0,16));
+        }
+
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,border);
     }
 
     @GetMapping("/getPlaceByType")
     @ApiOperation("根据类型获取地点信息")
     public ResultVo getPlaceByType(@ApiParam("类型") @RequestParam Integer type){
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getPlaceByType(type));
+        List<PlaceVo> placeByType = placeService.getPlaceByType(type);
+        if(placeByType.size()>16){
+            return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeByType.subList(0,16));
+        }
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeByType);
     }
 
     @GetMapping("/getPlaceByPrice")
     @ApiOperation("根据类型获取地点信息")
     public ResultVo getPlaceByPrice(@ApiParam("价格") @RequestParam Float start,@ApiParam("价格") @RequestParam Float end){
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeService.getPlaceByPrice(start,end));
+        List<PlaceVo> placeByPrice = placeService.getPlaceByPrice(start, end);
+        if(placeByPrice.size()>16){
+            return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeByPrice.subList(0,16));
+        }
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeByPrice);
     }
 
     @PostMapping("/save")
     @ApiOperation("保存一个地点信息")
     public ResultVo savePlace(@RequestBody Place place){
+        System.out.println(place);
         placeService.savePlace(place);
         return new ResultVo(StatusCode.SAVE_SUCCESS.code,StatusCode.SAVE_SUCCESS.dsc,null);
     }
