@@ -2,10 +2,7 @@ package rebotstudio.hhsturim.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.entity.Top;
 import rebotstudio.hhsturim.service.PlaceService;
 import rebotstudio.hhsturim.vo.ResultVo;
@@ -16,6 +13,7 @@ import java.lang.annotation.Repeatable;
 @RestController
 @RequestMapping("/content")
 @Api(tags = "内容管理接口")
+@CrossOrigin(maxAge = 3600)
 public class ContentMagController {
 
     private final PlaceService placeService;

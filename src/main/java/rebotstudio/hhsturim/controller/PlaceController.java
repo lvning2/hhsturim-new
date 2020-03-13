@@ -18,7 +18,6 @@ import rebotstudio.hhsturim.vo.ResultVo;
 import rebotstudio.hhsturim.vo.StatusCode;
 import rebotstudio.hhsturim.vo.UserVo;
 
-
 import java.util.List;
 
 @RestController
@@ -48,7 +47,7 @@ public class PlaceController {
             placeVo.setUsername(user.getUsername());
         }
 
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,placeVos.size(),placeVos);
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,pages.getTotalElements(),placeVos);
     }
 
     @GetMapping("/getPlaceById/{id}")
@@ -110,12 +109,18 @@ public class PlaceController {
 
     @GetMapping("/getPlaceByUserId")
     @ApiOperation("根据用户id获取发布的信息")
-    public ResultVo getPlaceByUserId(){
+    public ResultVo getPlaceByUserId(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size){
+
+        PageRequest of = PageRequest.of(page-1, size);
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         UserVo user =(UserVo) session.getAttribute("user");
-        List<PlaceVo> list = placeService.getPlaceByUserId(user.getId());
-        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,list.size(),list);
+        Page<Place> pages = placeService.getPlaceByUserId(user.getId(), of);
+        List<PlaceVo> placeVos = PlaceMapper.toVoList(pages.getContent());
+        placeVos.forEach(placeVo -> {placeVo.setUsername(user.getUsername());});
+
+        //List<PlaceVo> list = placeService.getPlaceByUserId(user.getId(),of);
+        return new ResultVo(StatusCode.LOAD_SUCCESS.code,StatusCode.LOAD_SUCCESS.dsc,pages.getTotalElements(),placeVos);
     }
 
     @PostMapping("/deletePlaceById")

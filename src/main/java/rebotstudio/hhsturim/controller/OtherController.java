@@ -25,7 +25,6 @@ public class OtherController {
     @ApiOperation("上传图片")
     public ResultVo imgUpload(@RequestParam("fileName") MultipartFile multipartFile) throws IOException {
 
-
         if (multipartFile.isEmpty()) {
             return new ResultVo(StatusCode.SAVE_FAILED.code,StatusCode.SAVE_FAILED.dsc,"请选择文件");
         }

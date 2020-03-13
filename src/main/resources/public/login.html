@@ -19,14 +19,15 @@
 <style>
 
     .form{
+        top: 20%;
         margin: 0 auto;
         width: 25%;
         left: 38%;
     }
     .btm{
         margin: 0 auto;
-        width: 25%;
-        left: 38%;
+        width: 15%;
+        left: 28%;
     }
 
 
@@ -35,9 +36,12 @@
 
 
 <body>
+<br/>
+<br/>
+<br/>
 
     <div>
-        <div></div>
+
         <div class="form" id="form">
             <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="用户名" prop="username">

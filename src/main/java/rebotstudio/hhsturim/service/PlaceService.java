@@ -1,9 +1,10 @@
 package rebotstudio.hhsturim.service;
 
-import org.omg.PortableServer.POA;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.Place;
 import rebotstudio.hhsturim.entity.Top;
@@ -68,12 +69,13 @@ public class PlaceService {
         return placeVo;
     }
 
-    public List<PlaceVo> getPlaceByUserId(Integer uid){
+    public Page<Place> getPlaceByUserId(Integer uid, Pageable of){
         User user = userRepository.getOne(uid);
-        List<Place> places = placeRepository.findByUid(uid);
-        List<PlaceVo> placeVos = PlaceMapper.toVoList(places);
-        placeVos.forEach(placeVo -> {placeVo.setUsername(user.getUsername());});
-        return placeVos;
+        Page<Place> byUid = placeRepository.findByUid(uid, of);
+        return byUid;
+//        List<PlaceVo> placeVos = PlaceMapper.toVoList(places);
+//        placeVos.forEach(placeVo -> {placeVo.setUsername(user.getUsername());});
+//        return placeVos;
     }
 
     @Transactional

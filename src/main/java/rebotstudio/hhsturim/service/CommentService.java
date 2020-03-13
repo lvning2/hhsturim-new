@@ -1,6 +1,5 @@
 package rebotstudio.hhsturim.service;
 
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.Comment;
 import rebotstudio.hhsturim.entity.User;
@@ -32,7 +31,6 @@ public class CommentService {
             if(user!=null){
                 commentVo.setUsername(user.getUsername());
             }
-
         }
         return commentVos;
     }
@@ -56,6 +54,7 @@ public class CommentService {
         one.setContent(c);
         commentRepository.save(one);
     }
+
 
 }
 
