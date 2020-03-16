@@ -42,6 +42,8 @@ public class LoginController {
          this.syslogService = syslogService;
     }
 
+
+
     @PostMapping("/login")
     @ResponseBody
     public ResultVo login(String username, String password, HttpServletRequest request, HttpServletResponse response){
@@ -104,7 +106,7 @@ public class LoginController {
 
     @RequestMapping(value = "/",method = {RequestMethod.GET,RequestMethod.POST})
     public String index(){
-        return "console.html";
+        return "/main.html";
     }
 
     @PostMapping("/register")
