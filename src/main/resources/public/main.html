@@ -84,7 +84,7 @@
         #border{
           width: 73%;
           margin: 0 auto;
-          height: calc(100% - 200px);
+          height: calc(150% - 200px);
         }
 
         .item{
@@ -133,13 +133,16 @@
         background-color: #ffffff;
         
     }
- 
-    footer{
-      
-      height: 300px;
-      border: 2px blue solid;
 
-    }
+
+
+    /*footer{*/
+    /*    float: left;*/
+    /*  height: 100px;*/
+    /*  !*border: 2px blue solid;*!*/
+    /*  !*  position:absolute;*!*/
+    /*    bottom:0;*/
+    /*}*/
         .login-nav{
             float: right;
         }
@@ -156,12 +159,11 @@
 
 </head>
 
-<body >
+<body>
 
 <div class="main-out">
     <ul id="my-layui-top" class="layui-nav" lay-filter="">
         <li class="layui-nav-item layui-this"><a href="/main.html">首页</a></li>
-<!--        <li class="layui-nav-item "><a href="">产品</a></li>-->
         <li class="layui-nav-item"><a href="javascript:;">我是业主</font></a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a href="/release.html">发布信息</a></dd>
@@ -169,14 +171,8 @@
             </dl>
 
         </li>
-<!--        <li class="layui-nav-item"><a href="">大数据</a></li>-->
         <li class="layui-nav-item" >
             <a href="javascript:;" id="myover">下载APP</a>
-<!--            <dl class="layui-nav-child"> &lt;!&ndash; 二级菜单 &ndash;&gt;-->
-<!--                <dd><a href="">移动模块</a></dd>-->
-<!--                <dd><a href="">后台模版</a></dd>-->
-<!--&lt;!&ndash;                <dd><a href="">电商平台</a></dd>&ndash;&gt;-->
-<!--            </dl>-->
         </li>
         <li class="layui-nav-item"><a href="">最新活动</a></li>
         <li class="layui-nav-item"><a href="">社区</a></li>
@@ -197,15 +193,11 @@
 
     
     <div id="main">
-
         <div class="main-top">
-
           <div v-for="(item,i) in list"  class="list_item_top layui-anim">
                 <a :href="href+item.id" target="_blank"><img class="list_item_top_img"    :title="item.title" :src="item.img"></a>
           </div>
-
         </div>
-
       </div>
 
 </div>
@@ -217,7 +209,12 @@
   <div class="catalogue" >
     分类： <a class="center_type" id="1" @click="getPlaceByType($event)">餐饮</a>
            <a class="center_type" id="2" @click="getPlaceByType($event)">商业街</a>
-           <a class="center_type" id="3" @click="getPlaceByType($event)">娱乐</a> 集会 竞赛 训练 其他
+           <a class="center_type" id="3" @click="getPlaceByType($event)">娱乐</a>
+           <a class="center_type" id="4" @click="getPlaceByType($event)">集会</a>
+           <a class="center_type" id="5" @click="getPlaceByType($event)">竞赛</a>
+           <a class="center_type" id="6" @click="getPlaceByType($event)">训练</a>
+           <a class="center_type" id="7" @click="getPlaceByType($event)">其他</a>
+
   </div>
   
   <div class="price">
@@ -246,7 +243,6 @@
                 <p>电话：{{item.phone}}</p>
                 <p>价格：{{item.price}}</p>
                 <p>分类：{{item.type}}</p>
-                
             </div>
         </div></a>
         
@@ -263,6 +259,8 @@
       <div>
 
         <p>服务与支持</p>
+          <p>联系我们</p>
+          <p>加入我们</p>
 
       </div>
 </footer>

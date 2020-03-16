@@ -27,15 +27,7 @@ public class ShrioConfig {
     }
 
 
-    // 配置url过滤器
-    @Bean
-    public ShiroFilterChainDefinition shiroFilterChainDefinition(){
 
-        DefaultShiroFilterChainDefinition chainDefinition=new DefaultShiroFilterChainDefinition();
-        //chainDefinition.addPathDefinition("/public/console/console.html","authc");
-
-        return chainDefinition;
-    }
 
     // 避免这个错误：Consider injecting the bean as one of its interfaces or forcing the use of CGLib-based proxies by
     // setting proxyTargetClass=true on @EnableAsync and/or @EnableCaching.
@@ -56,5 +48,16 @@ public class ShrioConfig {
         return securityManager;
     }
 
+    // 配置url过滤器
+    @Bean
+    public ShiroFilterChainDefinition shiroFilterChainDefinition(){
+
+        DefaultShiroFilterChainDefinition chainDefinition=new DefaultShiroFilterChainDefinition();
+        chainDefinition.addPathDefinition("/public/console/console.html","authc");
+        chainDefinition.addPathDefinition("/myList.html","authc");
+        chainDefinition.addPathDefinition("/place/getPlaceByUserId","authc");
+        System.out.println("进入shrio拦截器...");
+        return chainDefinition;
+    }
 
 }

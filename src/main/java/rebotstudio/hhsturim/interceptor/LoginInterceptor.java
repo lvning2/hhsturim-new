@@ -18,9 +18,20 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         //HttpSession session = request.getSession();
+        Subject subject=null;
+        try {
 
-        Subject subject = SecurityUtils.getSubject();
+            subject  = SecurityUtils.getSubject();
+        }catch (Exception e){
+            System.out.println("无shrio session");
+        }
+        if(subject==null){
+            response.setStatus(302);
+            response.sendRedirect("/login.html");
 
+            System.out.println("拦截...");
+            return false;
+        }
         Session session = subject.getSession();
 
         UserVo user = (UserVo)session.getAttribute("user");
@@ -29,7 +40,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         //request.getRequestDispatcher("/login").forward(request,response);
+        response.setStatus(302);
         response.sendRedirect("/login.html");
+
         System.out.println("拦截...");
         return false;
 
@@ -49,3 +62,4 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 
 }
+

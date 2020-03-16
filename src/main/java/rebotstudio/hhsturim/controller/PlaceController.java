@@ -3,6 +3,7 @@ package rebotstudio.hhsturim.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.data.domain.Page;
@@ -109,6 +110,7 @@ public class PlaceController {
 
     @GetMapping("/getPlaceByUserId")
     @ApiOperation("根据用户id获取发布的信息")
+    @RequiresAuthentication
     public ResultVo getPlaceByUserId(@RequestParam(defaultValue = "1") Integer page,@RequestParam(defaultValue = "10") Integer size){
 
         PageRequest of = PageRequest.of(page-1, size);
