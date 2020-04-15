@@ -26,6 +26,19 @@ public class ShrioConfig {
         return userRealm;
     }
 
+    // 配置url过滤器
+    @Bean
+    public ShiroFilterChainDefinition shiroFilterChainDefinition(){
+
+        DefaultShiroFilterChainDefinition chainDefinition=new DefaultShiroFilterChainDefinition();
+        chainDefinition.addPathDefinition("/public/console/console.html","authc");
+        chainDefinition.addPathDefinition("/myList.html","authc");
+        chainDefinition.addPathDefinition("/place/getPlaceByUserId","authc");
+        System.out.println("进入shrio拦截器...");
+        return chainDefinition;
+    }
+
+
 
 
 
@@ -48,16 +61,5 @@ public class ShrioConfig {
         return securityManager;
     }
 
-    // 配置url过滤器
-    @Bean
-    public ShiroFilterChainDefinition shiroFilterChainDefinition(){
-
-        DefaultShiroFilterChainDefinition chainDefinition=new DefaultShiroFilterChainDefinition();
-        chainDefinition.addPathDefinition("/public/console/console.html","authc");
-        chainDefinition.addPathDefinition("/myList.html","authc");
-        chainDefinition.addPathDefinition("/place/getPlaceByUserId","authc");
-        System.out.println("进入shrio拦截器...");
-        return chainDefinition;
-    }
 
 }

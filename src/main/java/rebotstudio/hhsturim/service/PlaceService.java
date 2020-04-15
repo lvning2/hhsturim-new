@@ -5,18 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import rebotstudio.hhsturim.common.DateUtils;
 import rebotstudio.hhsturim.entity.Place;
+import rebotstudio.hhsturim.entity.PlaceType;
 import rebotstudio.hhsturim.entity.Top;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.mapper.PlaceMapper;
 import rebotstudio.hhsturim.repository.PlaceRepository;
+import rebotstudio.hhsturim.repository.PlaceTypeRepository;
 import rebotstudio.hhsturim.repository.TopRepository;
 import rebotstudio.hhsturim.repository.UserRepository;
+import rebotstudio.hhsturim.vo.CountVo;
 import rebotstudio.hhsturim.vo.PlaceVo;
 
+import javax.transaction.TransactionScoped;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +38,9 @@ public class PlaceService {
 
     @Autowired
     private TopRepository topRepository;
+
+    @Autowired
+    private PlaceTypeRepository placeTypeRepository;
 
     @Transactional
     public Page<Place> getAll(PageRequest pageRequest){        //获取所有的地点信息
@@ -51,6 +61,7 @@ public class PlaceService {
 
     @Transactional
     public void savePlace(Place place){     //保存一个地点信息
+        place.setCreateTime(new Date());
         placeRepository.save(place);
     }
 
@@ -162,6 +173,38 @@ public class PlaceService {
         place.setPrice(price);
         placeRepository.save(place);
     }
+
+    @Transactional
+    public List<CountVo> getCount(Date date){               // 统计一个季度的发布情况
+
+        List<CountVo> list  = new ArrayList<>();
+
+        Date start = DateUtils.getCurrentQuarterStartTime(date);
+        Date end = DateUtils.getCurrentQuarterEndTime(date);
+
+        List<PlaceType> types = placeTypeRepository.findAll();
+        for (PlaceType type: types){
+            Integer count = placeRepository.countPlaceByTypeAndCreateTimeBetween(type.getId(), start, end);
+            CountVo countVo=new CountVo();
+            countVo.setTypeId(type.getId());
+            countVo.setName(type.getTypeName());
+            countVo.setValue(count);
+            list.add(countVo);
+        }
+        return list;
+    }
+
+    @Transactional
+    public List<PlaceVo> getAll(){  // 导出使用
+        List<Place> places = placeRepository.findAll(Sort.by("createTime"));
+        List<PlaceVo> placeVos = PlaceMapper.toVoList(places);
+        for(PlaceVo placeVo: placeVos){
+            Optional<User> byId = userRepository.findById(placeVo.getUid());
+            placeVo.setUsername(byId.isPresent()?byId.get().getUsername():"");
+        }
+        return placeVos;
+    }
+
 
 }
 

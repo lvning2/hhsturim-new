@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim;
 
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -17,6 +18,7 @@ public class HhsturimApplication {
 
         ConfigurableApplicationContext context = SpringApplication.run(HhsturimApplication.class, args);
         //context.addApplicationListener(new CreateMapListener());
+
 
     }
 

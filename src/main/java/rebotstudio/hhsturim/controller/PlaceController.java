@@ -9,16 +9,17 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import rebotstudio.hhsturim.common.DateUtils;
 import rebotstudio.hhsturim.entity.Place;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.mapper.PlaceMapper;
 import rebotstudio.hhsturim.service.PlaceService;
 import rebotstudio.hhsturim.service.UserService;
-import rebotstudio.hhsturim.vo.PlaceVo;
-import rebotstudio.hhsturim.vo.ResultVo;
-import rebotstudio.hhsturim.vo.StatusCode;
-import rebotstudio.hhsturim.vo.UserVo;
+import rebotstudio.hhsturim.vo.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -136,6 +137,17 @@ public class PlaceController {
         placeService.updatePlaceById(id,title,phone,details,type,price);
         return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
     }
+
+    @GetMapping("/getCount")
+    public ResultVo getCount(String time) throws ParseException {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Date date = sdf.parse(time);
+        List<CountVo> count = placeService.getCount(date);
+        return new ResultVo(StatusCode.UPDATE_SUCCESS.code, DateUtils.GetQuarterByDate(date),count);
+    }
+
+
+
 
 }
 

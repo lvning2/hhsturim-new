@@ -1,21 +1,28 @@
 package rebotstudio.hhsturim.test;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
+
+import cn.hutool.system.RuntimeInfo;
+import cn.hutool.system.SystemUtil;
+import rebotstudio.hhsturim.common.DateUtils;
+import rebotstudio.hhsturim.common.StringUtils;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Test {
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        Date parse = sdf.parse("2020-3-07");
 
-        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-
-        String encode = bCryptPasswordEncoder.encode("123");
-        System.out.println(encode);
+        String s = DateUtils.GetQuarterByDate(parse);
+        System.out.println(s);
 
     }
 
