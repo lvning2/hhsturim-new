@@ -116,7 +116,7 @@
                         if(response.data.code==0){
                             window.location='/main.html';
                         }else (
-                            alert("用户名或密码错误")
+                            alert(response.data.msg)
                         )
                     })
             } else {

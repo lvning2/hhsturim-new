@@ -56,6 +56,9 @@ public class LoginController {
         try {
             subject.login(token);
             User user = loginService.login(username,password,request.getRemoteAddr());
+
+
+
             UserVo userVo = UserMapper.toVo(user);
 
             userVo.setSessionId(request.getSession().getId());
@@ -93,12 +96,12 @@ public class LoginController {
         } catch (UnknownAccountException e) {
             //登录失败:用户名不存在
             logger.info(username+",用户名不存在");
-            Syslog syslog=new Syslog(username,"登录失败，用户名不存在",request.getRemoteAddr(),new Date());
-            return new ResultVo(1,"用户名不存在",null);
+            Syslog syslog=new Syslog(username,"用户名不存在或账户不可用",request.getRemoteAddr(),new Date());
+            return new ResultVo(1,"用户名不存在或账户不可用",null);
         } catch (IncorrectCredentialsException e) {
             //登录失败:密码错误
             logger.info(username+",密码错误");
-            Syslog syslog=new Syslog(username,"登录失败",request.getRemoteAddr(),new Date());
+            Syslog syslog=new Syslog(username,"密码错误",request.getRemoteAddr(),new Date());
             syslogService.saveSyslog(syslog);
             return new ResultVo(1,"密码错误",null);
         }
@@ -116,6 +119,7 @@ public class LoginController {
         user.setMark(0);
         user.setRid(1);
         user.setState(0);
+        user.setEnable(true);
         System.out.println(user);
         loginService.register(user);
         return new ResultVo(0,"注册成功",null);
@@ -162,4 +166,7 @@ public class LoginController {
 
 
 }
+
+
+
 

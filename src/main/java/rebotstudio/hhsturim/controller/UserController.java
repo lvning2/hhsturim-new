@@ -42,12 +42,17 @@ public class UserController {
     }
 
     @PostMapping("/updateUserById")
-    public ResultVo updateUserById(Integer id,String name,String Phone,Integer age,String idCard,String address){
+    public ResultVo updateUserById(Integer id,String name,String phone,Integer age,String idCard,String address){
         System.out.println(name);
-        userService.updateUserById(id,name,Phone,age,idCard,address);
+        userService.updateUserById(id,name,phone,age,idCard,address);
         return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
     }
 
+    @PostMapping("/setEnable")
+    public ResultVo setEnable(Integer uid,Integer enable){  // 1 可用，0不可用
+        userService.setUserEnable(uid,enable);
+        return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
+    }
 
 }
 

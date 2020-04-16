@@ -8,6 +8,7 @@
     <script src="/js/jquery.cookie.min.js"></script>
     <script src="/layui/layui.js"></script>
 
+
  <style>
      #hhstu-logo{
          width: 60%;
@@ -26,7 +27,7 @@
 
         </ul>
         <ul class="layui-nav layui-layout-right">
-            <li class="layui-nav-item" ><div><a href="/main.html">首页</a></div></li>
+            <li class="layui-nav-item" ><div><a class="layui-icon layui-icon-home" href="/main.html"> 首页</a></div></li>
             <li class="layui-nav-item">
       	<span style="font-family: '楷体'; font-size: 18px;" >
       			 <span  style="font-family: '楷体'; font-size: 20px;color: #009F95;" id="username" >${username}</span>
@@ -41,19 +42,19 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item layui-nav-itemed"><a href="/console/listPlace.html">场所管理</a> </li>
-                <li class="layui-nav-item"><a href="/console/listUser.html">用户管理</a> </li>
-                <li class="layui-nav-item"><a href="">系统监控</a></li>
+                <li class="layui-nav-item layui-nav-itemed"><a class="layui-icon layui-icon-template" href="/console/listPlace.html"> 场所管理</a> </li>
+                <li class="layui-nav-item"><a class="layui-icon layui-icon-user" href="/console/listUser.html"> 用户管理</a> </li>
+                <li class="layui-nav-item"><a class="layui-icon layui-icon-console" href=""> 系统监控</a></li>
 <!--                <li class="layui-nav-item layui-nav-itemed">-->
 <!--                <a href="javascript:;">系统管理</a></li>-->
 <!--                <dl class="layui-nav-child">-->
 <!--                    <dd class="layui-nav-item"><a href="javascript:;">系统日志</a></dd>-->
 <!--                </dl>-->
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">系统管理</a>
+                    <a class="layui-icon layui-icon-set" href="javascript:;"> 系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/console/syslog.html">系统日志</a></dd>
-                        <dd><a href="/console/listOnlineUser.html">在线用户</a></dd>
+                        <dd><a class="layui-icon layui-icon-survey" href="/console/syslog.html"> 系统日志</a></dd>
+                        <dd><a class="layui-icon layui-icon-log" href="/console/listOnlineUser.html"> 在线用户</a></dd>
                     </dl>
                 </li>
 

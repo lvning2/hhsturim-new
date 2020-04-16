@@ -37,5 +37,6 @@ public class UserVo {
 
     private String sessionId;
     private Integer rid;
+    private boolean enable;
 
 }

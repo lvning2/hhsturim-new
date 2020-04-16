@@ -1,5 +1,6 @@
 package rebotstudio.hhsturim.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -42,7 +43,8 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 
         User user = userService.getUserByUsername(token.getUsername());
-        if (user == null) {        // 用户名不存在
+
+        if (user == null||!user.isEnable()) {        // 用户名不存在
             return null;       // shrio 底层会抛出 UnKnowAccountExcption
         }
 

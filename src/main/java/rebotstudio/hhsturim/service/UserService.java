@@ -45,4 +45,17 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void setUserEnable(Integer uid,Integer enable){
+        User user = userRepository.getOne(uid);
+        if (user.getUsername().equals("admin")){
+            return;
+        }
+        if (enable == 1) {
+            user.setEnable(true);
+        } else {
+            user.setEnable(false);
+        }
+        userRepository.save(user);
+    }
+
 }
