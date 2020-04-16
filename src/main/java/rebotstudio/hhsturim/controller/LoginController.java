@@ -114,7 +114,7 @@ public class LoginController {
     public ResultVo register(@RequestBody User user){
 
         user.setMark(0);
-        user.setRid(0);
+        user.setRid(1);
         user.setState(0);
         System.out.println(user);
         loginService.register(user);
