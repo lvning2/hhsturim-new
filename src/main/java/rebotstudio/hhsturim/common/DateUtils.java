@@ -34,7 +34,7 @@ public class DateUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //System.out.println("测试");
+
         return now;
     }
 
