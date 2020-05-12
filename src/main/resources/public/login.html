@@ -1,5 +1,6 @@
 <html>
 <head>
+
     <title>请登录</title>
     <meta charset="utf-8" />
     <script src="js/jquery-3.4.1.js"></script>
@@ -15,6 +16,7 @@
 
 <!--    <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>-->
 
+
 </head>
 <style>
 
@@ -22,12 +24,33 @@
         top: 20%;
         margin: 0 auto;
         width: 25%;
-        left: 38%;
+        /*left: 38%;*/
     }
     .btm{
+        position: relative;
         margin: 0 auto;
-        width: 15%;
-        left: 28%;
+        /*width: 15%;*/
+        /*left: 28%;*/
+    }
+    body{
+        background-image: url("/img/login_bg.jpg");
+    }
+    .my_register{
+        position:absolute;
+        right:0%;
+    }
+    .my_qq{
+        position:absolute;
+        margin: 0 auto;
+        left: 42%;
+    }
+    .my_weixin{
+        position:absolute;
+        margin: 0 auto;
+        right: 37%;
+    }
+    .my_pleas{
+        text-align: center;
     }
 
 </style>
@@ -38,8 +61,13 @@
 <br/>
 <br/>
 
-    <div>
+    <div class="my_bg">
+        <br />
+        <br />
 
+        <h2 class="my_pleas">请登录</h2>
+
+        <br />
         <div class="form" id="form">
             <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="用户名" prop="username">
@@ -51,13 +79,13 @@
 
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-                  <el-button @click="resetForm('ruleForm')">注册</el-button>
+                  <el-button class="my_register" @click="resetForm('ruleForm')">注册</el-button>
                 </el-form-item>
               </el-form>
         </div>
         <div class="btm">
-            <a><img src="img/qq.png">QQ登录</a>
-            <a><img src="img/weixin.png">微信登录</a>
+            <div class="my_qq"><a><img src="img/qq.png"></a></div>
+            <div class="my_weixin"><a ><img src="img/weixin.png"></a></div>
         </div>
 
     </div>
