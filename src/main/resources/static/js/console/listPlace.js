@@ -67,7 +67,7 @@ initPlaceTable();
                 layer.open({
                     type: 2 //此处以iframe举例
                     , title: data.username
-                    , area: ['70%', '70%']
+                    , area: ['70%', '85%']
                     , shade: 0
                     , maxmin: true
                     // 用户名 姓名 年龄 电话 身份证 地址
