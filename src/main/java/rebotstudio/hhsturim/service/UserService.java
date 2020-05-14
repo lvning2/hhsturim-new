@@ -3,6 +3,7 @@ package rebotstudio.hhsturim.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.repository.UserRepository;
@@ -56,6 +57,21 @@ public class UserService {
             user.setEnable(false);
         }
         userRepository.save(user);
+    }
+
+    public boolean updatePassword(Integer uid,String oldPassword,String newPassword){
+        User one = userRepository.getOne(uid);
+        String password = one.getPassword();
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        boolean matches = bCryptPasswordEncoder.matches(oldPassword, password);
+        if (matches){
+            one.setPassword(bCryptPasswordEncoder.encode(newPassword));
+            userRepository.save(one);
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
 }

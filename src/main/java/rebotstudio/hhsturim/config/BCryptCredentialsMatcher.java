@@ -16,4 +16,5 @@ public class BCryptCredentialsMatcher implements CredentialsMatcher {
         // 密码对比
         return bCryptPasswordEncoder.matches(StringUtils.ArrayToString(token.getPassword()),authenticationInfo.getCredentials().toString());
     }
+
 }

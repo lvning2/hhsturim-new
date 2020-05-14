@@ -17,10 +17,14 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        String requestURI = request.getRequestURI();
+        if (requestURI.equals("/user/updatePassword")){
+            return true;
+        }
+
         //HttpSession session = request.getSession();
         Subject subject=null;
         try {
-
             subject  = SecurityUtils.getSubject();
         }catch (Exception e){
             System.out.println("无shrio session");

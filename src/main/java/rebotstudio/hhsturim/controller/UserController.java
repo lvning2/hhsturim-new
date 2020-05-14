@@ -2,6 +2,7 @@ package rebotstudio.hhsturim.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import rebotstudio.hhsturim.entity.User;
 import rebotstudio.hhsturim.mapper.UserMapper;
@@ -52,6 +53,17 @@ public class UserController {
     public ResultVo setEnable(Integer uid,Integer enable){  // 1 可用，0不可用
         userService.setUserEnable(uid,enable);
         return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
+    }
+
+    @PostMapping("/updatePassword")
+    public ResultVo updatePassword(Integer uid,String oldPassword,String newPassword){
+        boolean b = userService.updatePassword(uid, oldPassword, newPassword);
+        if (b){
+            return new ResultVo(StatusCode.UPDATE_SUCCESS.code,StatusCode.UPDATE_SUCCESS.dsc,null);
+        }else {
+            return new ResultVo(StatusCode.UPDATE_FAILED.code,StatusCode.UPDATE_FAILED.dsc,null);
+        }
+
     }
 
 }

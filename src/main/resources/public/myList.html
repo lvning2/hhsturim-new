@@ -9,13 +9,10 @@
     <script src="js/vue.js"></script>
     <script src="js/jquery.cookie.min.js"></script>
     <style>
-
         .login-nav{
             float: right;
         }
-
     </style>
-
 </head>
 
 <ul id="my-layui-top" class="layui-nav" lay-filter="">
@@ -44,20 +41,17 @@
         <!--            v-bind:class="{mylogin : islogin}"-->
         <a href=""><img src="//t.cn/RCzsdCq" class="layui-nav-img">我</a>
         <dl class="layui-nav-child">
-            <dd><a href="javascript:;">修改信息</a></dd>
-            <dd><a href="javascript:;">安全管理</a></dd>
+            <dd><a href="/updatePassword.html">修改密码</a></dd>
             <dd><a href="javascript:;">退出</a></dd>
         </dl>
     </li>
     <li class="layui-nav-item login-nav" v-show="islogin" ><a href="/login.html">登录</a></li>
     <li class="layui-nav-item login-nav" v-show="notlogin" ><a href="/logout">退出</a></li>
+
 </ul>
 
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
-
-
-
 
 
 </body>
